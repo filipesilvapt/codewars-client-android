@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">CodeWars</string>
+    <string name="title_members">Members</string>
+    <string name="title_challenges">Challenges</string>
+    <string name="title_challenge_details">Challenge Details</string>
+    <string name="nav_bar_challenges_completed">Completed Challenges</string>
+    <string name="nav_bar_challenges_authored">Authored Challenges</string>
+</resources>
