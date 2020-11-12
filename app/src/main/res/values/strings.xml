@@ -8,4 +8,10 @@
 
     <string name="hint_search_member">Member name</string>
     <string name="error_search_member">Member not found</string>
+    <string name="header_rank">Rank</string>
+    <string name="header_username">Username</string>
+    <string name="header_language">Language (pts)</string>
+    <string name="menu_sort_by_search">Sort by Search</string>
+    <string name="menu_sort_by_rank">Sort by Rank</string>
+
 </resources>

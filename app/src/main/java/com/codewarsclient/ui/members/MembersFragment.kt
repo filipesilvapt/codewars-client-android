@@ -71,6 +71,25 @@ class MembersFragment : Fragment() {
                 input_layout_member_name.error = null
             }
         }
+
+        // Setup sort menu actions
+        bottom_sort_menu.setOnNavigationItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.sort_by_search -> {
+                    (list_of_members.adapter as MembersListAdapter).sortMembersList(
+                        MembersSortOption.SEARCH_DESC
+                    )
+                    true
+                }
+                R.id.sort_by_rank -> {
+                    (list_of_members.adapter as MembersListAdapter).sortMembersList(
+                        MembersSortOption.RANK_DESC
+                    )
+                    true
+                }
+                else -> false
+            }
+        }
     }
 
     private fun searchMemberFromInputField() {
@@ -81,7 +100,7 @@ class MembersFragment : Fragment() {
         // Continuously observe changes to the search history to fill the list
         membersViewModel.listOfSearchedMembers.observe(viewLifecycleOwner,
             { members: List<MemberEntity> ->
-                (list_of_members.adapter as MembersListAdapter).updateItems(members)
+                (list_of_members.adapter as MembersListAdapter).updateMembersList(members)
             })
 
         // Update error message accordingly

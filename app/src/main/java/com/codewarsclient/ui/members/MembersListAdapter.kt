@@ -10,6 +10,8 @@ class MembersListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var membersList: MutableList<MemberEntity> = ArrayList()
 
+    private var currentSortOption: MembersSortOption = MembersSortOption.SEARCH_DESC
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return MembersItemViewHolder(
             LayoutInflater.from(parent.context)
@@ -25,9 +27,21 @@ class MembersListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         return (holder as MembersItemViewHolder).bind(membersList[position])
     }
 
-    fun updateItems(receivedMembersList: List<MemberEntity>) {
+    fun updateMembersList(receivedMembersList: List<MemberEntity>) {
         membersList.clear()
         membersList.addAll(receivedMembersList)
+        sortMembersList(currentSortOption)
+        notifyDataSetChanged()
+    }
+
+    fun sortMembersList(sortOption: MembersSortOption) {
+        currentSortOption = sortOption
+
+        when (currentSortOption) {
+            MembersSortOption.SEARCH_DESC -> membersList.sortByDescending { it.timeOfSearch }
+            MembersSortOption.RANK_DESC -> membersList.sortByDescending { it.rank }
+        }
+
         notifyDataSetChanged()
     }
 
