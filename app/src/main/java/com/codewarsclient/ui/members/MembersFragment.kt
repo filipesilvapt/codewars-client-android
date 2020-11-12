@@ -1,31 +1,52 @@
 package com.codewarsclient.ui.members
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.codewarsclient.R
+import com.codewarsclient.models.MemberModel
 
 class MembersFragment : Fragment() {
 
-    private lateinit var membersViewModel: MembersViewModel
+    private val membersViewModel: MembersViewModel by viewModels()
+
+    private lateinit var listOfMembers: RecyclerView
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        membersViewModel =
-            ViewModelProvider(this).get(MembersViewModel::class.java)
+        Log.i(TAG, "onCreateView")
+
         val root = inflater.inflate(R.layout.fragment_members, container, false)
-        val textView: TextView = root.findViewById(R.id.text_title)
-        membersViewModel.text.observe(viewLifecycleOwner, Observer {
-            textView.text = it
-        })
+
+        listOfMembers = root.findViewById(R.id.list_of_members)
+
+        listOfMembers.apply {
+            layoutManager = LinearLayoutManager(requireContext())
+            adapter = MembersListAdapter()
+        }
         return root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        Log.i(TAG, "onViewCreated - Starting observers")
+
+        membersViewModel.searchMemberByName("AlexIsHappy").observe(viewLifecycleOwner,
+            { memberFound: MemberModel ->
+                (listOfMembers.adapter as MembersListAdapter).addItem(memberFound)
+            })
+    }
+
+    companion object {
+        private val TAG: String = MembersFragment::class.java.simpleName
     }
 }
