@@ -7,4 +7,5 @@
     <string name="nav_bar_challenges_authored">Authored Challenges</string>
 
     <string name="hint_search_member">Member name</string>
+    <string name="error_search_member">Member not found</string>
 </resources>

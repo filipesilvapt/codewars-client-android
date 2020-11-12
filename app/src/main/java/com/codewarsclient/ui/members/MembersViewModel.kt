@@ -3,22 +3,35 @@ package com.codewarsclient.ui.members
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.liveData
+import androidx.lifecycle.viewModelScope
 import com.codewarsclient.models.MemberModel
 import com.codewarsclient.repositories.MemberRepository
-import kotlinx.coroutines.Dispatchers
+import com.codewarsclient.repositories.RepositoryResultWrapper
+import kotlinx.coroutines.launch
 
-class MembersViewModel : ViewModel() {
+class MembersViewModel(private val memberRepository: MemberRepository = MemberRepository()) :
+    ViewModel() {
 
-    private val _membersList = MutableLiveData<List<MemberModel>>().apply {
-        value = emptyList()
+    private val _memberSearchResult = MutableLiveData<MemberModel>()
+    val memberSearchResult: LiveData<MemberModel> = _memberSearchResult
+
+    private val _isToShowError = MutableLiveData<Boolean>().apply {
+        value = false
     }
-    val membersList: LiveData<List<MemberModel>> = _membersList
+    val isToShowError: LiveData<Boolean> = _isToShowError
 
-    fun searchMemberByName(username: String) = liveData(Dispatchers.IO) {
-        val foundMember = MemberRepository().getMemberByName(username)
-
-        emit(foundMember)
+    fun searchMemberByName(username: String) {
+        viewModelScope.launch {
+            val memberSearchResponse = memberRepository.getMemberByName(username)
+            when (memberSearchResponse) {
+                //is RepositoryResultWrapper.NetworkError -> showNetworkError()
+                is RepositoryResultWrapper.Failure -> _isToShowError.value = true
+                is RepositoryResultWrapper.Success -> {
+                    _isToShowError.value = false
+                    _memberSearchResult.value = memberSearchResponse.value
+                }
+            }
+        }
     }
 
 }
