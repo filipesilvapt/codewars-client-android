@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.codewarsclient.R
-import com.codewarsclient.models.MemberModel
+import com.codewarsclient.database.entities.MemberEntity
 import com.codewarsclient.utils.hideKeyboard
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_members.*
@@ -78,10 +78,10 @@ class MembersFragment : Fragment() {
     }
 
     private fun observeSearchResults() {
-        // Add the found member to the list
-        membersViewModel.memberSearchResult.observe(viewLifecycleOwner,
-            { memberFound: MemberModel ->
-                (list_of_members.adapter as MembersListAdapter).addItem(memberFound)
+        // Continuously observe changes to the search history to fill the list
+        membersViewModel.listOfSearchedMembers.observe(viewLifecycleOwner,
+            { members: List<MemberEntity> ->
+                (list_of_members.adapter as MembersListAdapter).updateItems(members)
             })
 
         // Update error message accordingly

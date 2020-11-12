@@ -4,11 +4,11 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.codewarsclient.R
-import com.codewarsclient.models.MemberModel
+import com.codewarsclient.database.entities.MemberEntity
 
 class MembersListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private var membersList: MutableList<MemberModel> = ArrayList()
+    private var membersList: MutableList<MemberEntity> = ArrayList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return MembersItemViewHolder(
@@ -25,14 +25,10 @@ class MembersListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         return (holder as MembersItemViewHolder).bind(membersList[position])
     }
 
-    fun addItem(memberToAdd: MemberModel) {
-        membersList.add(memberToAdd)
-
+    fun updateItems(receivedMembersList: List<MemberEntity>) {
+        membersList.clear()
+        membersList.addAll(receivedMembersList)
         notifyDataSetChanged()
-    }
-
-    fun updateItems(receivedMembersList: List<MemberModel>) {
-
     }
 
 }
