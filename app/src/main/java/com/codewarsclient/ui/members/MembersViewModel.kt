@@ -1,5 +1,6 @@
 package com.codewarsclient.ui.members
 
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -9,8 +10,9 @@ import com.codewarsclient.repositories.MemberRepository
 import com.codewarsclient.repositories.RepositoryResultWrapper
 import kotlinx.coroutines.launch
 
-class MembersViewModel(private val memberRepository: MemberRepository = MemberRepository()) :
-    ViewModel() {
+class MembersViewModel @ViewModelInject constructor(
+    private val memberRepository: MemberRepository
+) : ViewModel() {
 
     private val _memberSearchResult = MutableLiveData<MemberModel>()
     val memberSearchResult: LiveData<MemberModel> = _memberSearchResult

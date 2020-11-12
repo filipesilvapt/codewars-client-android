@@ -13,8 +13,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.codewarsclient.R
 import com.codewarsclient.models.MemberModel
 import com.codewarsclient.utils.hideKeyboard
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_members.*
 
+@AndroidEntryPoint
 class MembersFragment : Fragment() {
 
     private val membersViewModel: MembersViewModel by viewModels()
