@@ -5,4 +5,6 @@
     <string name="title_challenge_details">Challenge Details</string>
     <string name="nav_bar_challenges_completed">Completed Challenges</string>
     <string name="nav_bar_challenges_authored">Authored Challenges</string>
+
+    <string name="hint_search_member">Member name</string>
 </resources>

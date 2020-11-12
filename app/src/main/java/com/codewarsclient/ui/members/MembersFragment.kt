@@ -2,21 +2,22 @@ package com.codewarsclient.ui.members
 
 import android.os.Bundle
 import android.util.Log
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.codewarsclient.R
 import com.codewarsclient.models.MemberModel
+import com.codewarsclient.utils.hideKeyboard
+import kotlinx.android.synthetic.main.fragment_members.*
 
 class MembersFragment : Fragment() {
 
     private val membersViewModel: MembersViewModel by viewModels()
-
-    private lateinit var listOfMembers: RecyclerView
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -25,25 +26,43 @@ class MembersFragment : Fragment() {
     ): View? {
         Log.i(TAG, "onCreateView")
 
-        val root = inflater.inflate(R.layout.fragment_members, container, false)
-
-        listOfMembers = root.findViewById(R.id.list_of_members)
-
-        listOfMembers.apply {
-            layoutManager = LinearLayoutManager(requireContext())
-            adapter = MembersListAdapter()
-        }
-        return root
+        return inflater.inflate(R.layout.fragment_members, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         Log.i(TAG, "onViewCreated - Starting observers")
 
-        membersViewModel.searchMemberByName("AlexIsHappy").observe(viewLifecycleOwner,
-            { memberFound: MemberModel ->
-                (listOfMembers.adapter as MembersListAdapter).addItem(memberFound)
-            })
+        // Configure recycler view
+        list_of_members.apply {
+            layoutManager = LinearLayoutManager(requireContext())
+            adapter = MembersListAdapter()
+        }
+
+        // Set action for end icon to search a member
+        input_layout_member_name.setEndIconOnClickListener {
+            input_text_member_name.hideKeyboard()
+            searchMemberFromInputField()
+        }
+
+        // Set action for keyboard's done button to search a member
+        input_text_member_name.setOnEditorActionListener { inputView, actionId, keyEvent ->
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                searchMemberFromInputField()
+            } else if (keyEvent != null && (keyEvent.keyCode == KeyEvent.KEYCODE_ENTER)) {
+                inputView.hideKeyboard()
+                searchMemberFromInputField()
+            }
+            false
+        }
+    }
+
+    private fun searchMemberFromInputField() {
+        membersViewModel.searchMemberByName(input_text_member_name.text.toString())
+            .observe(viewLifecycleOwner,
+                { memberFound: MemberModel ->
+                    (list_of_members.adapter as MembersListAdapter).addItem(memberFound)
+                })
     }
 
     companion object {
