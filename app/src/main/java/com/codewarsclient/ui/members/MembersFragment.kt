@@ -9,9 +9,9 @@ import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.codewarsclient.R
 import com.codewarsclient.database.entities.MemberEntity
+import com.codewarsclient.databinding.FragmentMembersBinding
 import com.codewarsclient.utils.hideKeyboard
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_members.*
@@ -28,12 +28,17 @@ class MembersFragment : Fragment() {
     ): View? {
         Log.i(TAG, "onCreateView")
 
-        return inflater.inflate(R.layout.fragment_members, container, false)
+        val binding = FragmentMembersBinding.inflate(layoutInflater, container, false)
+
+        binding.viewModel = membersViewModel
+        binding.lifecycleOwner = viewLifecycleOwner
+
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Log.i(TAG, "onViewCreated - Starting observers")
+        Log.i(TAG, "onViewCreated")
 
         setupUI()
 
@@ -41,12 +46,6 @@ class MembersFragment : Fragment() {
     }
 
     private fun setupUI() {
-        // Configure recycler view
-        list_of_members.apply {
-            layoutManager = LinearLayoutManager(requireContext())
-            adapter = MembersListAdapter()
-        }
-
         // Set action for end icon to search a member
         input_layout_member_name.setEndIconOnClickListener {
             input_text_member_name.clearFocus()

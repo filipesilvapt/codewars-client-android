@@ -1,110 +1,126 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.members.MembersFragment">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/input_layout_member_name"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:hint="@string/hint_search_member"
-        app:endIconDrawable="@drawable/ic_search_black_24dp"
-        app:endIconMode="custom"
-        app:layout_constraintBottom_toTopOf="@id/layout_headers"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_chainStyle="packed"
-        app:startIconDrawable="@drawable/ic_person_black_24dp">
+    <data>
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/input_text_member_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:imeOptions="actionDone"
-            android:inputType="text"
-            android:maxLines="1" />
-
-    </com.google.android.material.textfield.TextInputLayout>
+        <variable
+            name="viewModel"
+            type="com.codewarsclient.ui.members.MembersViewModel" />
+    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/layout_headers"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="12dp"
-        app:layout_constraintBottom_toTopOf="@+id/list_of_members"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/input_layout_member_name">
+        android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/text_header_rank"
-            android:layout_width="wrap_content"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/input_layout_member_name"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/header_rank"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/text_header_name"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:hint="@string/hint_search_member"
+            app:endIconDrawable="@drawable/ic_search_black_24dp"
+            app:endIconMode="custom"
+            app:layout_constraintBottom_toTopOf="@id/layout_headers"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed"
+            app:startIconDrawable="@drawable/ic_person_black_24dp">
 
-        <TextView
-            android:id="@+id/text_header_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/header_username"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/text_header_language"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/text_header_rank"
-            app:layout_constraintTop_toTopOf="parent" />
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/input_text_member_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:imeOptions="actionDone"
+                android:inputType="text"
+                android:maxLines="1" />
 
-        <TextView
-            android:id="@+id/text_header_language"
-            android:layout_width="wrap_content"
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_headers"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/header_language"
-            android:textSize="20sp"
-            android:textStyle="bold"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="12dp"
+            app:layout_constraintBottom_toTopOf="@+id/list_of_members"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/input_layout_member_name">
+
+            <TextView
+                android:id="@+id/text_header_rank"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/header_rank"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/text_header_name"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintHorizontal_chainStyle="spread_inside"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/text_header_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/header_username"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/text_header_language"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/text_header_rank"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/text_header_language"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/header_language"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/text_header_name"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/list_of_members"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="10dp"
+            android:scrollbars="vertical"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toTopOf="@+id/bottom_sort_menu"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/layout_headers"
+            bind:listAdapter="@{viewModel.membersListAdapter}"
+            tools:listitem="@layout/layout_row_item_member" />
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottom_sort_menu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/text_header_name"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/list_of_members"
+            app:menu="@menu/members_bottom_sort_menu" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/list_of_members"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="10dp"
-        android:scrollbars="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/bottom_sort_menu"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/layout_headers" />
-
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottom_sort_menu"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/list_of_members"
-        app:menu="@menu/members_bottom_sort_menu" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
