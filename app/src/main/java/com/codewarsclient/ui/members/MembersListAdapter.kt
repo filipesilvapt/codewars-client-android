@@ -13,7 +13,7 @@ class MembersListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var currentSortOption: MembersSortOption = MembersSortOption.SEARCH_DESC
 
-    val selectedMember = MutableLiveData<MemberEntity>()
+    val selectedMember = MutableLiveData<MemberEntity?>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return MembersItemViewHolder(
@@ -30,6 +30,8 @@ class MembersListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         (holder as MembersItemViewHolder).bind(membersList[position])
         holder.itemView.setOnClickListener {
             selectedMember.value = membersList[position]
+            // Reset value in live data object
+            selectedMember.value = null
         }
     }
 

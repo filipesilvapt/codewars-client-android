@@ -38,6 +38,6 @@ class ChallengesFragment : Fragment() {
     }
 
     companion object {
-        private val TAG: String = MembersFragment::class.java.simpleName
+        private val TAG: String = ChallengesFragment::class.java.simpleName
     }
 }

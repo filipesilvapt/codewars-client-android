@@ -46,9 +46,11 @@ class MembersFragment : Fragment() {
         observeSearchResults()
 
         membersViewModel.selectedMember.observe(viewLifecycleOwner,
-            { member: MemberEntity ->
-                NavHostFragment.findNavController(this)
-                    .navigate(MembersFragmentDirections.actionOpenChallenges(member.username))
+            { member: MemberEntity? ->
+                member?.let {
+                    NavHostFragment.findNavController(this)
+                        .navigate(MembersFragmentDirections.actionOpenChallenges(member.username))
+                }
             })
     }
 
