@@ -2,6 +2,7 @@ package com.codewarsclient.ui.members
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.codewarsclient.R
 import com.codewarsclient.database.entities.MemberEntity
@@ -11,6 +12,8 @@ class MembersListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private var membersList: MutableList<MemberEntity> = ArrayList()
 
     private var currentSortOption: MembersSortOption = MembersSortOption.SEARCH_DESC
+
+    val selectedMember = MutableLiveData<MemberEntity>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return MembersItemViewHolder(
@@ -24,7 +27,10 @@ class MembersListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        return (holder as MembersItemViewHolder).bind(membersList[position])
+        (holder as MembersItemViewHolder).bind(membersList[position])
+        holder.itemView.setOnClickListener {
+            selectedMember.value = membersList[position]
+        }
     }
 
     fun updateMembersList(receivedMembersList: List<MemberEntity>) {

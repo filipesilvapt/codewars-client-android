@@ -16,7 +16,7 @@ class MembersViewModel @ViewModelInject constructor(
 
     val membersListAdapter: RecyclerView.Adapter<*> = MembersListAdapter()
 
-    val selectedMember = MutableLiveData<MemberEntity>()
+    val selectedMember = (membersListAdapter as MembersListAdapter).selectedMember
 
     private val _isToShowError = MutableLiveData<Boolean>().apply {
         value = false

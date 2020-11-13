@@ -11,7 +11,7 @@
         tools:layout="@layout/fragment_members">
         <action
             android:id="@+id/action_open_challenges"
-            app:destination="@+id/navigation_challenges"/>
+            app:destination="@+id/navigation_challenges" />
     </fragment>
 
     <fragment
@@ -19,9 +19,14 @@
         android:name="com.codewarsclient.ui.challenges.ChallengesFragment"
         android:label="@string/title_challenges"
         tools:layout="@layout/fragment_challenges">
+        <argument
+            android:name="memberUsername"
+            android:defaultValue=""
+            app:argType="string" />
+
         <action
             android:id="@+id/action_open_challenge_details"
-            app:destination="@+id/navigation_challenge_details"/>
+            app:destination="@+id/navigation_challenge_details" />
     </fragment>
 
     <fragment

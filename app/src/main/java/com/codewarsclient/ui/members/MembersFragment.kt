@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.NavHostFragment
 import com.codewarsclient.R
 import com.codewarsclient.database.entities.MemberEntity
 import com.codewarsclient.databinding.FragmentMembersBinding
@@ -43,6 +44,12 @@ class MembersFragment : Fragment() {
         setupUI()
 
         observeSearchResults()
+
+        membersViewModel.selectedMember.observe(viewLifecycleOwner,
+            { member: MemberEntity ->
+                NavHostFragment.findNavController(this)
+                    .navigate(MembersFragmentDirections.actionOpenChallenges(member.username))
+            })
     }
 
     private fun setupUI() {
