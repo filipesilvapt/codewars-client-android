@@ -18,8 +18,7 @@ data class MemberModel(
             ranksList.overallRank.rank,
             ranksList.overallRank.name,
             highestRankedLanguage?.language ?: "",
-            highestRankedLanguage?.score ?: 0,
-            System.currentTimeMillis()
-        )
+            highestRankedLanguage?.score ?: 0
+        ).updateTimeOfSearchWithNow()
     }
 }

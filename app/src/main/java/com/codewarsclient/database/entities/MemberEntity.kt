@@ -23,5 +23,10 @@ class MemberEntity(
     val bestLanguagePoints: Int = 0,
 
     @ColumnInfo(name = "time_of_search")
-    val timeOfSearch: Long = 0
-)
+    var timeOfSearch: Long = 0
+) {
+    fun updateTimeOfSearchWithNow(): MemberEntity {
+        timeOfSearch = System.currentTimeMillis()
+        return this
+    }
+}

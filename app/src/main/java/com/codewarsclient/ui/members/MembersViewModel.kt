@@ -23,7 +23,7 @@ class MembersViewModel @ViewModelInject constructor(
 
     fun searchMemberByName(username: String) {
         viewModelScope.launch {
-            val memberFound = memberRepository.searchMemberByName(username)
+            val memberFound = memberRepository.searchMemberAndSave(username)
 
             _isToShowError.value = !memberFound
         }

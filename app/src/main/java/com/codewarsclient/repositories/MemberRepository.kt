@@ -16,26 +16,45 @@ class MemberRepository @Inject constructor(
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : BaseRepository() {
 
+    /**
+     * Returns an observable object for a list of the last searched members.
+     */
     fun getLastSearchedMembers(): LiveData<List<MemberEntity>> {
         return dao.getLastSearchedMembers()
     }
 
-    suspend fun searchMemberByName(idOrUsername: String): Boolean {
+    /**
+     * Searches a member by a given username giving priority to the api call and falling back to
+     * a database entry, which in case will update its time of search.
+     *
+     * Returns true if it was able to find the member, false otherwise.
+     */
+    suspend fun searchMemberAndSave(username: String): Boolean {
         val memberSearchApiResponse = safeApiCall(dispatcher) {
-            apiService.getMemberByName(idOrUsername)
+            apiService.getMemberByName(username)
         }
 
         return when (memberSearchApiResponse) {
-            is RepositoryResultWrapper.NetworkError -> false
-            is RepositoryResultWrapper.Failure -> false
+            is RepositoryResultWrapper.NetworkError -> updateMemberLocalSearchIfExists(username)
+            is RepositoryResultWrapper.Failure -> updateMemberLocalSearchIfExists(username)
             is RepositoryResultWrapper.Success -> {
-                // _isToShowError.value = false
-                // _memberSearchResult.value = memberSearchApiResponse.value
-
-                dao.insertUser(memberSearchApiResponse.value.toMemberEntity())
-
+                dao.insertMember(memberSearchApiResponse.value.toMemberEntity())
                 true
             }
         }
+    }
+
+    /**
+     * Searches for a member using its username in the local database and updates its time of search.
+     *
+     * Returns true if it was able to find the member, false otherwise.
+     */
+    private suspend fun updateMemberLocalSearchIfExists(username: String): Boolean {
+        val memberFound = dao.getMember(username)
+        return memberFound?.let {
+            it.updateTimeOfSearchWithNow()
+            dao.updateMember(it)
+            true
+        } ?: false
     }
 }
