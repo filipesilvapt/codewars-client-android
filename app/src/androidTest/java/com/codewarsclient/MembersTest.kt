@@ -49,6 +49,8 @@ class MembersTest {
         Thread.sleep(3000)
 
         assertDisplayedAtPosition(R.id.list_of_members, 0, R.id.text_name, memberUsername)
+
+        assertListItemCount(R.id.list_of_members, 1)
     }
 
     @Test
@@ -71,7 +73,7 @@ class MembersTest {
     }
 
     @Test
-    fun assertMemberList_Sorting_Options() {
+    fun assertMembersList_Sorting_Options() {
         val memberUsernames = arrayOf("myjinxin2015", "qwe")
 
         memberUsernames.onEach {
@@ -97,6 +99,34 @@ class MembersTest {
         // Assert sort by rank desc
         assertDisplayedAtPosition(R.id.list_of_members, 0, R.id.text_name, memberUsernames[0])
         assertDisplayedAtPosition(R.id.list_of_members, 1, R.id.text_name, memberUsernames[1])
+    }
+
+    @Test
+    fun assertMembersList_Max_Elements_Shown() {
+        val memberUsernames = arrayOf(
+            "St3f4n",
+            "jhoffner",
+            "monadius",
+            "KenKamau",
+            "BattleRattle",
+            "Blind4Basics",
+            "Voile"
+        )
+
+        memberUsernames.onEach {
+            onView(withId(R.id.input_text_member_name))
+                .perform(click())
+                .perform(clearText())
+                .perform(typeText(it))
+                .perform(pressImeActionButton())
+
+            assertNotFocused(R.id.input_text_member_name)
+
+            // Wait for network call
+            Thread.sleep(3000)
+        }
+
+        assertListItemCount(R.id.list_of_members, 5)
     }
 
 }
