@@ -4,11 +4,11 @@
     <item
         android:id="@+id/navigation_challenges_completed"
         android:icon="@drawable/ic_done_all_black_24dp"
-        android:title="@string/nav_bar_challenges_completed" />
+        android:title="@string/title_challenges_completed" />
 
     <item
         android:id="@+id/navigation_challenges_authored"
         android:icon="@drawable/ic_book_black_24dp"
-        android:title="@string/nav_bar_challenges_authored" />
+        android:title="@string/title_challenges_authored" />
 
 </menu>

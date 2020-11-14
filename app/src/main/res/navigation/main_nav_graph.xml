@@ -11,18 +11,43 @@
         tools:layout="@layout/fragment_members">
         <action
             android:id="@+id/action_open_challenges"
-            app:destination="@+id/navigation_challenges" />
+            app:destination="@+id/navigation_challenges_completed" />
     </fragment>
 
     <fragment
-        android:id="@+id/navigation_challenges"
-        android:name="com.codewarsclient.ui.challenges.ChallengesFragment"
-        android:label="@string/title_challenges"
+        android:id="@+id/navigation_challenges_completed"
+        android:name="com.codewarsclient.ui.challenges.CompletedChallengesFragment"
+        android:label="@string/title_challenges_completed"
         tools:layout="@layout/fragment_challenges">
         <argument
             android:name="memberUsername"
             android:defaultValue=""
             app:argType="string" />
+
+        <action
+            android:id="@+id/action_open_challenges_authored"
+            app:destination="@+id/navigation_challenges_authored"
+            app:popUpTo="@+id/navigation_members" />
+
+        <action
+            android:id="@+id/action_open_challenge_details"
+            app:destination="@+id/navigation_challenge_details" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_challenges_authored"
+        android:name="com.codewarsclient.ui.challenges.AuthoredChallengesFragment"
+        android:label="@string/title_challenges_authored"
+        tools:layout="@layout/fragment_challenges">
+        <argument
+            android:name="memberUsername"
+            android:defaultValue=""
+            app:argType="string" />
+
+        <action
+            android:id="@+id/action_open_challenges_completed"
+            app:destination="@+id/navigation_challenges_completed"
+            app:popUpTo="@+id/navigation_members" />
 
         <action
             android:id="@+id/action_open_challenge_details"

@@ -1,10 +1,9 @@
 <resources>
     <string name="app_name">CodeWars</string>
     <string name="title_members">Members</string>
-    <string name="title_challenges">Challenges</string>
     <string name="title_challenge_details">Challenge Details</string>
-    <string name="nav_bar_challenges_completed">Completed Challenges</string>
-    <string name="nav_bar_challenges_authored">Authored Challenges</string>
+    <string name="title_challenges_completed">Completed Challenges</string>
+    <string name="title_challenges_authored">Authored Challenges</string>
 
     <string name="hint_search_member">Member name</string>
     <string name="error_search_member_not_found">Member not found</string>
@@ -14,5 +13,7 @@
     <string name="header_language">Language (pts)</string>
     <string name="menu_sort_by_search">Sort by Search</string>
     <string name="menu_sort_by_rank">Sort by Rank</string>
+
+    <string name="label_rank">Rank:</string>
 
 </resources>
