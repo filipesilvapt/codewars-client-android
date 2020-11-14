@@ -101,7 +101,15 @@ class MembersFragment : Fragment() {
     }
 
     private fun searchMemberFromInputField() {
-        membersViewModel.searchMemberByName(input_text_member_name.text.toString())
+        val memberName = input_text_member_name.text.toString().trim()
+        if (memberName.isEmpty()) {
+            // Set error text
+            input_layout_member_name.error = getString(R.string.error_search_member_empty)
+            input_text_member_name.text?.clear()
+        } else {
+            input_text_member_name.setText(memberName)
+            membersViewModel.searchMemberByName(memberName)
+        }
     }
 
     private fun observeSearchResults() {
@@ -116,7 +124,8 @@ class MembersFragment : Fragment() {
             { isToShowError: Boolean ->
                 if (isToShowError) {
                     // Set error text
-                    input_layout_member_name.error = getString(R.string.error_search_member)
+                    input_layout_member_name.error =
+                        getString(R.string.error_search_member_not_found)
                 } else {
                     // Clear error text
                     input_layout_member_name.error = null

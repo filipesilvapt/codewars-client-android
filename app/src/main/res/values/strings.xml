@@ -7,7 +7,8 @@
     <string name="nav_bar_challenges_authored">Authored Challenges</string>
 
     <string name="hint_search_member">Member name</string>
-    <string name="error_search_member">Member not found</string>
+    <string name="error_search_member_not_found">Member not found</string>
+    <string name="error_search_member_empty">Member name cannot be empty</string>
     <string name="header_rank">Rank</string>
     <string name="header_username">Username</string>
     <string name="header_language">Language (pts)</string>
