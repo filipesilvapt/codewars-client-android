@@ -2,6 +2,7 @@ package com.codewarsclient.di
 
 import com.codewarsclient.api.ApiService
 import com.codewarsclient.database.dao.MemberDao
+import com.codewarsclient.repositories.CompletedChallengesRepository
 import com.codewarsclient.repositories.MemberRepository
 import dagger.Module
 import dagger.Provides
@@ -20,5 +21,14 @@ object RepositoriesModule {
     ): MemberRepository {
         return MemberRepository(memberDao, apiService, Dispatchers.IO)
     }
+
+    @Provides
+    fun provideCompletedChallengesRepository(
+        //completedChallengesDao: CompletedChallengesDao,
+        apiService: ApiService
+    ): CompletedChallengesRepository {
+        return CompletedChallengesRepository(apiService, Dispatchers.IO)
+    }
+
 
 }
