@@ -28,6 +28,8 @@ class MembersListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         (holder as MembersItemViewHolder).bind(membersList[position])
+
+        // Set the click listener for each item
         holder.itemView.setOnClickListener {
             selectedMember.value = membersList[position]
             // Reset value in live data object
@@ -35,6 +37,10 @@ class MembersListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         }
     }
 
+    /**
+     * Updates the members list with the received content, making sure its sorted according to the
+     * current sorting option
+     */
     fun updateMembersList(receivedMembersList: List<MemberEntity>) {
         membersList.clear()
         membersList.addAll(receivedMembersList)
@@ -42,6 +48,9 @@ class MembersListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         notifyDataSetChanged()
     }
 
+    /**
+     * Sorts the members list according the given sorting option
+     */
     fun sortMembersList(sortOption: MembersSortOption) {
         currentSortOption = sortOption
 

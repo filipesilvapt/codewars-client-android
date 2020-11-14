@@ -41,58 +41,49 @@ class MembersFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         Log.i(TAG, "onViewCreated")
 
-        setupUI()
+        observeMemberSearchAction()
 
-        observeSearchResults()
+        observeSortMenuActions()
 
-        membersViewModel.selectedMember.observe(viewLifecycleOwner,
-            { member: MemberEntity? ->
-                member?.let {
-                    NavHostFragment.findNavController(this)
-                        .navigate(MembersFragmentDirections.actionOpenChallenges(member.username))
-                }
-            })
+        observeSearchHistory()
+
+        observeSelectedMember()
     }
 
-    private fun setupUI() {
+    /**
+     * Sets the action for the search field end icon and the keyboard action done button
+     */
+    private fun observeMemberSearchAction() {
         // Set action for end icon to search a member
         input_layout_member_name.setEndIconOnClickListener {
             input_text_member_name.clearFocus()
             input_text_member_name.hideKeyboard()
-            searchMemberFromInputField()
+            membersViewModel.searchMemberFromInputField()
         }
 
         // Set action for keyboard's done button to search a member
         input_text_member_name.setOnEditorActionListener { inputView, actionId, keyEvent ->
             if (actionId == EditorInfo.IME_ACTION_DONE || (keyEvent != null && (keyEvent.keyCode == KeyEvent.KEYCODE_ENTER))) {
-                input_text_member_name.clearFocus()
+                inputView.clearFocus()
                 inputView.hideKeyboard()
-                searchMemberFromInputField()
+                membersViewModel.searchMemberFromInputField()
             }
             false
         }
+    }
 
-        // Reset input layout state on focus
-        input_text_member_name.setOnFocusChangeListener { _, hasFocus ->
-            if (hasFocus) {
-                // Clear error text
-                input_layout_member_name.error = null
-            }
-        }
-
-        // Setup sort menu actions
+    /**
+     * Sets the sort menu actions
+     */
+    private fun observeSortMenuActions() {
         bottom_sort_menu.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.sort_by_search -> {
-                    (list_of_members.adapter as MembersListAdapter).sortMembersList(
-                        MembersSortOption.SEARCH_DESC
-                    )
+                    membersViewModel.sortMembersList(MembersSortOption.SEARCH_DESC)
                     true
                 }
                 R.id.sort_by_rank -> {
-                    (list_of_members.adapter as MembersListAdapter).sortMembersList(
-                        MembersSortOption.RANK_DESC
-                    )
+                    membersViewModel.sortMembersList(MembersSortOption.RANK_DESC)
                     true
                 }
                 else -> false
@@ -100,35 +91,25 @@ class MembersFragment : Fragment() {
         }
     }
 
-    private fun searchMemberFromInputField() {
-        val memberName = input_text_member_name.text.toString().trim()
-        if (memberName.isEmpty()) {
-            // Set error text
-            input_layout_member_name.error = getString(R.string.error_search_member_empty)
-            input_text_member_name.text?.clear()
-        } else {
-            input_text_member_name.setText(memberName)
-            membersViewModel.searchMemberByName(memberName)
-        }
-    }
-
-    private fun observeSearchResults() {
-        // Continuously observe changes to the search history to fill the list
+    /**
+     * Continuously observes changes to the search history to keep the list updated
+     */
+    private fun observeSearchHistory() {
         membersViewModel.listOfSearchedMembers.observe(viewLifecycleOwner,
             { members: List<MemberEntity> ->
                 (list_of_members.adapter as MembersListAdapter).updateMembersList(members)
             })
+    }
 
-        // Update error message accordingly
-        membersViewModel.isToShowError.observe(viewLifecycleOwner,
-            { isToShowError: Boolean ->
-                if (isToShowError) {
-                    // Set error text
-                    input_layout_member_name.error =
-                        getString(R.string.error_search_member_not_found)
-                } else {
-                    // Clear error text
-                    input_layout_member_name.error = null
+    /**
+     * Observes member selection to navigate to the challenges page
+     */
+    private fun observeSelectedMember() {
+        membersViewModel.selectedMember.observe(viewLifecycleOwner,
+            { member: MemberEntity? ->
+                member?.let {
+                    NavHostFragment.findNavController(this)
+                        .navigate(MembersFragmentDirections.actionOpenChallenges(member.username))
                 }
             })
     }
