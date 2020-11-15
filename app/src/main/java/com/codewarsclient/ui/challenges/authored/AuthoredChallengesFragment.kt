@@ -25,6 +25,9 @@ class AuthoredChallengesFragment : ChallengesFragment() {
 
         // Set the member username
         challengesViewModel.setMemberUsername(args.memberUsername)
+
+        // Search the challenges for the received member
+        challengesViewModel.searchMemberChallenges()
     }
 
     override fun observeNavigationOptions() {

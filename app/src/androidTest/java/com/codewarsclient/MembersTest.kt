@@ -67,7 +67,7 @@ class MembersTest {
         // Wait for network call
         Thread.sleep(3000)
 
-        assertError(R.id.input_layout_member_name, R.string.error_search_member)
+        assertError(R.id.input_layout_member_name, R.string.error_search_member_not_found)
 
         assertListItemCount(R.id.list_of_members, 0)
     }

@@ -1,5 +1,6 @@
 package com.codewarsclient.api
 
+import com.codewarsclient.models.AuthoredChallengesModel
 import com.codewarsclient.models.CompletedChallengesModel
 import com.codewarsclient.models.MemberModel
 import retrofit2.http.GET
@@ -16,5 +17,10 @@ interface ApiService {
         @Path(ApiConstants.PATH_ID_OR_USERNAME) idOrUsername: String,
         @Query(ApiConstants.QUERY_PAGE_NUMBER) pageNumber: Int
     ): CompletedChallengesModel
+
+    @GET("v1/users/{id_or_username}/code-challenges/authored")
+    suspend fun getMemberAuthoredChallenges(
+        @Path(ApiConstants.PATH_ID_OR_USERNAME) idOrUsername: String
+    ): AuthoredChallengesModel
 
 }

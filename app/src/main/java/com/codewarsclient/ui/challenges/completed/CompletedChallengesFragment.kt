@@ -42,7 +42,6 @@ class CompletedChallengesFragment : ChallengesFragment() {
                                 challengesViewModel.getMemberUsername()
                             )
                         )
-
                     true
                 }
                 else -> false
