@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.codewarsclient.databinding.FragmentChallengesBinding
+import kotlinx.android.synthetic.main.fragment_challenges.*
 
 abstract class ChallengesFragment : Fragment() {
 
@@ -29,6 +30,8 @@ abstract class ChallengesFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         observeNavigationOptions()
+
+        observeScrollActions()
     }
 
     /**
@@ -40,6 +43,23 @@ abstract class ChallengesFragment : Fragment() {
      * Get the view model instantiated
      */
     abstract fun getViewModel(): ChallengesViewModel
+
+    /**
+     * Observes the actions on the scroll buttons
+     */
+    private fun observeScrollActions() {
+        fab_list_top.setOnClickListener {
+            getViewModel().getListAdapter().run {
+                if (itemCount > 0) list_of_challenges.scrollToPosition(0)
+            }
+        }
+
+        fab_list_bottom.setOnClickListener {
+            getViewModel().getListAdapter().run {
+                if (itemCount > 0) list_of_challenges.scrollToPosition(itemCount - 1)
+            }
+        }
+    }
 
     companion object {
         private val TAG: String = ChallengesFragment::class.java.simpleName

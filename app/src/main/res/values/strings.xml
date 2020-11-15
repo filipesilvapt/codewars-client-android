@@ -16,4 +16,7 @@
 
     <string name="label_rank">Rank:</string>
 
+    <string name="fab_list_top">Go to the top of the list</string>
+    <string name="fab_list_bottom">Go to the bottom of the list</string>
+
 </resources>
