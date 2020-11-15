@@ -30,7 +30,7 @@ class MembersTest {
     val clearDatabaseRule = ClearDatabaseRule()
 
     @Test
-    fun assertMemberSearch_Hint_Present() {
+    fun assertMemberSearch_Hint_Text() {
         onView(withId(R.id.input_text_member_name)).check(matches(withHint(R.string.hint_search_member)))
     }
 
@@ -54,7 +54,7 @@ class MembersTest {
     }
 
     @Test
-    fun assertMemberSearch_Not_Found_And_Error_Present() {
+    fun assertMemberSearch_Not_Found_And_Error_Displayed() {
         val memberUsername = "wqertyuiu65342123425"
 
         onView(withId(R.id.input_text_member_name))
@@ -73,7 +73,7 @@ class MembersTest {
     }
 
     @Test
-    fun assertMemberSearch_Empty_And_Error_Present() {
+    fun assertMemberSearch_Empty_And_Error_Displayed() {
         val memberUsername = "      "
 
         onView(withId(R.id.input_text_member_name))
@@ -118,7 +118,7 @@ class MembersTest {
     }
 
     @Test
-    fun assertMembersList_Max_Elements_Shown() {
+    fun assertMembersList_Max_Elements_Displayed() {
         val memberUsernames = arrayOf(
             "St3f4n",
             "jhoffner",
