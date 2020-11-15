@@ -73,6 +73,22 @@ class MembersTest {
     }
 
     @Test
+    fun assertMemberSearch_Empty_And_Error_Present() {
+        val memberUsername = "      "
+
+        onView(withId(R.id.input_text_member_name))
+            .perform(click())
+            .perform(typeText(memberUsername))
+            .perform(pressImeActionButton())
+
+        assertNotFocused(R.id.input_text_member_name)
+
+        assertError(R.id.input_layout_member_name, R.string.error_search_member_empty)
+
+        assertListItemCount(R.id.list_of_members, 0)
+    }
+
+    @Test
     fun assertMembersList_Sorting_Options() {
         val memberUsernames = arrayOf("myjinxin2015", "qwe")
 
