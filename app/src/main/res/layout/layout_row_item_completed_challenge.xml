@@ -15,17 +15,19 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Simple Time Difference"
+            android:textAlignment="center"
             android:textSize="24sp"
-            app:layout_constraintBottom_toTopOf="@+id/text_created_date"
+            app:layout_constraintBottom_toTopOf="@+id/text_completed_date"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/text_created_date"
+            android:id="@+id/text_completed_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="2020-08-07 02_54:28"
+            android:textAlignment="center"
             android:textSize="20sp"
             app:layout_constraintBottom_toTopOf="@+id/text_languages"
             app:layout_constraintEnd_toEndOf="parent"
@@ -37,11 +39,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="javascript, c#, scala"
+            android:textAlignment="center"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_created_date" />
+            app:layout_constraintTop_toBottomOf="@+id/text_completed_date" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>

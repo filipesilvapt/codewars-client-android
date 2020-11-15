@@ -1,4 +1,4 @@
-package com.codewarsclient.ui.challenges
+package com.codewarsclient.ui.challenges.completed
 
 import android.os.Bundle
 import android.util.Log
@@ -7,6 +7,8 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.navArgs
 import com.codewarsclient.R
+import com.codewarsclient.ui.challenges.ChallengesFragment
+import com.codewarsclient.ui.challenges.ChallengesViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_challenges.*
 
@@ -23,6 +25,9 @@ class CompletedChallengesFragment : ChallengesFragment() {
 
         // Set the member username
         challengesViewModel.setMemberUsername(args.memberUsername)
+
+        // Search the challenges for the received member
+        challengesViewModel.searchMemberChallenges()
     }
 
     override fun observeNavigationOptions() {

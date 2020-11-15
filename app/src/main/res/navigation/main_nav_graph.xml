@@ -16,7 +16,7 @@
 
     <fragment
         android:id="@+id/navigation_challenges_completed"
-        android:name="com.codewarsclient.ui.challenges.CompletedChallengesFragment"
+        android:name="com.codewarsclient.ui.challenges.completed.CompletedChallengesFragment"
         android:label="@string/title_challenges_completed"
         tools:layout="@layout/fragment_challenges">
         <argument
@@ -36,7 +36,7 @@
 
     <fragment
         android:id="@+id/navigation_challenges_authored"
-        android:name="com.codewarsclient.ui.challenges.AuthoredChallengesFragment"
+        android:name="com.codewarsclient.ui.challenges.authored.AuthoredChallengesFragment"
         android:label="@string/title_challenges_authored"
         tools:layout="@layout/fragment_challenges">
         <argument

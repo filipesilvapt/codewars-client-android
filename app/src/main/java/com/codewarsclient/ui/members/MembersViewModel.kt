@@ -20,7 +20,7 @@ class MembersViewModel @ViewModelInject constructor(
     val listOfSearchedMembers: LiveData<List<MemberEntity>> =
         memberRepository.getLastSearchedMembers()
 
-    val selectedMember = (membersListAdapter as MembersListAdapter).selectedMember
+    val selectedMember = membersListAdapter.selectedMember
 
     val usernameToSearch = MutableLiveData<String>().apply {
         value = ""

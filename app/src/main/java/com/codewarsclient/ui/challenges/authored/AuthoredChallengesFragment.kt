@@ -1,4 +1,4 @@
-package com.codewarsclient.ui.challenges
+package com.codewarsclient.ui.challenges.authored
 
 import android.os.Bundle
 import android.util.Log
@@ -7,13 +7,15 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.navArgs
 import com.codewarsclient.R
+import com.codewarsclient.ui.challenges.ChallengesFragment
+import com.codewarsclient.ui.challenges.ChallengesViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_challenges.*
 
 @AndroidEntryPoint
 class AuthoredChallengesFragment : ChallengesFragment() {
 
-    private val challengesViewModel: CompletedChallengesViewModel by viewModels()
+    private val challengesViewModel: AuthoredChallengesViewModel by viewModels()
 
     private val args: AuthoredChallengesFragmentArgs by navArgs()
 
