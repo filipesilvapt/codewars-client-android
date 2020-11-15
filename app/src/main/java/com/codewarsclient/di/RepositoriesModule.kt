@@ -1,6 +1,7 @@
 package com.codewarsclient.di
 
 import com.codewarsclient.api.ApiService
+import com.codewarsclient.database.dao.CompletedChallengeDao
 import com.codewarsclient.database.dao.MemberDao
 import com.codewarsclient.repositories.AuthoredChallengesRepository
 import com.codewarsclient.repositories.CompletedChallengesRepository
@@ -25,10 +26,10 @@ object RepositoriesModule {
 
     @Provides
     fun provideCompletedChallengesRepository(
-        //completedChallengesDao: CompletedChallengesDao,
+        completedChallengeDao: CompletedChallengeDao,
         apiService: ApiService
     ): CompletedChallengesRepository {
-        return CompletedChallengesRepository(apiService, Dispatchers.IO)
+        return CompletedChallengesRepository(completedChallengeDao, apiService, Dispatchers.IO)
     }
 
     @Provides

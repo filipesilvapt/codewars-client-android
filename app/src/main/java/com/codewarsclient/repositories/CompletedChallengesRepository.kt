@@ -1,7 +1,8 @@
 package com.codewarsclient.repositories
 
 import com.codewarsclient.api.ApiService
-import com.codewarsclient.api.models.CompletedChallengesModel
+import com.codewarsclient.database.dao.CompletedChallengeDao
+import com.codewarsclient.database.entities.CompletedChallengesEntity
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import javax.inject.Inject
@@ -9,7 +10,7 @@ import javax.inject.Singleton
 
 @Singleton
 class CompletedChallengesRepository @Inject constructor(
-    //private val dao: CompletedChallengesDao,
+    private val dao: CompletedChallengeDao,
     private val apiService: ApiService,
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : BaseRepository() {
@@ -17,7 +18,7 @@ class CompletedChallengesRepository @Inject constructor(
     suspend fun getMemberCompletedChallenges(
         username: String,
         pageNumber: Int
-    ): CompletedChallengesModel? {
+    ): List<CompletedChallengesEntity>? {
         val challengesApiResponse = safeApiCall(dispatcher) {
             apiService.getMemberCompletedChallenges(username, pageNumber)
         }
@@ -26,7 +27,12 @@ class CompletedChallengesRepository @Inject constructor(
             is RepositoryResultWrapper.NetworkError -> null
             is RepositoryResultWrapper.Failure -> null
             is RepositoryResultWrapper.Success -> {
-                challengesApiResponse.value
+                val challengesEntityList =
+                    challengesApiResponse.value.toCompletedChallengeEntityList(username)
+
+                dao.insertChallengesList(challengesEntityList)
+
+                challengesEntityList
             }
         }
     }

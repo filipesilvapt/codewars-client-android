@@ -2,13 +2,13 @@ package com.codewarsclient.ui.challenges.completed
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
-import com.codewarsclient.api.models.CompletedChallengeDetailsModel
+import com.codewarsclient.database.entities.CompletedChallengesEntity
 import kotlinx.android.synthetic.main.layout_row_item_completed_challenge.view.*
 
 class CompletedChallengesItemViewHolder(private val challengeItemView: View) :
     RecyclerView.ViewHolder(challengeItemView) {
 
-    fun bind(item: CompletedChallengeDetailsModel) {
+    fun bind(item: CompletedChallengesEntity) {
         // Set the challenge name
         challengeItemView.text_title.text = item.challengeName
 

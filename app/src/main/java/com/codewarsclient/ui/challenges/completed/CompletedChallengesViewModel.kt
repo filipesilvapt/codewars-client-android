@@ -15,11 +15,11 @@ class CompletedChallengesViewModel @ViewModelInject constructor(
 
     fun searchMemberChallenges() {
         viewModelScope.launch {
-            val challengesModel =
+            val challengesList =
                 challengesRepository.getMemberCompletedChallenges(getMemberUsername(), 0)
 
-            challengesModel?.let {
-                challengesListAdapter.updateChallengesList(it.challengesList)
+            challengesList?.let {
+                challengesListAdapter.appendToChallengesList(challengesList)
             }
         }
     }
