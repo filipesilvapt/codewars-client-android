@@ -2,7 +2,7 @@ package com.codewarsclient.ui.challenges.completed
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
-import com.codewarsclient.models.CompletedChallengeDetailsModel
+import com.codewarsclient.api.models.CompletedChallengeDetailsModel
 import kotlinx.android.synthetic.main.layout_row_item_completed_challenge.view.*
 
 class CompletedChallengesItemViewHolder(private val challengeItemView: View) :

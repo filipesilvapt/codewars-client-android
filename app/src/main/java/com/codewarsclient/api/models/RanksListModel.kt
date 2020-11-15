@@ -1,4 +1,4 @@
-package com.codewarsclient.models
+package com.codewarsclient.api.models
 
 import com.codewarsclient.utils.jsonElementToRankModel
 import com.google.gson.JsonElement

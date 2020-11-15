@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.codewarsclient.R
-import com.codewarsclient.models.CompletedChallengeDetailsModel
+import com.codewarsclient.api.models.CompletedChallengeDetailsModel
 
 class CompletedChallengesListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 

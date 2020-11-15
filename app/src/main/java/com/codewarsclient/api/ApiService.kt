@@ -1,8 +1,8 @@
 package com.codewarsclient.api
 
-import com.codewarsclient.models.AuthoredChallengesModel
-import com.codewarsclient.models.CompletedChallengesModel
-import com.codewarsclient.models.MemberModel
+import com.codewarsclient.api.models.AuthoredChallengesModel
+import com.codewarsclient.api.models.CompletedChallengesModel
+import com.codewarsclient.api.models.MemberModel
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query

@@ -1,4 +1,4 @@
-package com.codewarsclient.models
+package com.codewarsclient.api.models
 
 import com.codewarsclient.database.entities.MemberEntity
 import com.google.gson.annotations.SerializedName

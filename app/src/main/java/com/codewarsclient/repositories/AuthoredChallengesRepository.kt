@@ -1,7 +1,7 @@
 package com.codewarsclient.repositories
 
 import com.codewarsclient.api.ApiService
-import com.codewarsclient.models.AuthoredChallengesModel
+import com.codewarsclient.api.models.AuthoredChallengesModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import javax.inject.Inject
