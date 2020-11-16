@@ -72,3 +72,4 @@ google-services.json
 # Ignore all properties files
 *.properties
 !gradle/wrapper/gradle-wrapper.properties
+!gradle.properties
