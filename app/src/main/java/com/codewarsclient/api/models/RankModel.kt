@@ -9,7 +9,7 @@ import com.google.gson.annotations.SerializedName
  * A language name can also be present as the key of a Rank object.
  */
 data class RankModel(
-    @SerializedName("rank")
+    @SerializedName("rank", alternate = ["id"])
     val rank: Int,
 
     @SerializedName("name")
@@ -19,7 +19,7 @@ data class RankModel(
     val color: String,
 
     @SerializedName("score")
-    val score: Int,
+    val score: Int = 0,
 
     var language: String = ""
 )

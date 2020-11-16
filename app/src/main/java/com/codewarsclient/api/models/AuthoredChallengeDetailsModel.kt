@@ -17,7 +17,7 @@ data class AuthoredChallengeDetailsModel(
     val tagsList: List<String>,
 
     @SerializedName("languages")
-    val languagesList: List<String>,
+    val languagesList: List<String>
 ) {
     fun toAuthoredChallengeEntity(username: String): AuthoredChallengeEntity {
         return AuthoredChallengeEntity(

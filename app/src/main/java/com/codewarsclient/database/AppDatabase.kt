@@ -6,9 +6,11 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.codewarsclient.database.dao.AuthoredChallengeDao
+import com.codewarsclient.database.dao.ChallengeDetailsDao
 import com.codewarsclient.database.dao.CompletedChallengeDao
 import com.codewarsclient.database.dao.MemberDao
 import com.codewarsclient.database.entities.AuthoredChallengeEntity
+import com.codewarsclient.database.entities.ChallengeDetailsEntity
 import com.codewarsclient.database.entities.CompletedChallengeEntity
 import com.codewarsclient.database.entities.MemberEntity
 
@@ -16,7 +18,8 @@ import com.codewarsclient.database.entities.MemberEntity
     entities = [
         MemberEntity::class,
         CompletedChallengeEntity::class,
-        AuthoredChallengeEntity::class
+        AuthoredChallengeEntity::class,
+        ChallengeDetailsEntity::class
     ], version = 1
 )
 @TypeConverters(Converters::class)
@@ -24,6 +27,7 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun memberDao(): MemberDao
     abstract fun completedChallengeDao(): CompletedChallengeDao
     abstract fun authoredChallengeDao(): AuthoredChallengeDao
+    abstract fun challengeDetailsDao(): ChallengeDetailsDao
 
     companion object {
         fun getInstance(applicationContext: Context): AppDatabase {
