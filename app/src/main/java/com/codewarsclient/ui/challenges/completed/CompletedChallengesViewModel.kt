@@ -16,12 +16,12 @@ class CompletedChallengesViewModel @ViewModelInject constructor(
     private var pageNumber = 0
 
     /**
-     * Searches the member challenges using the pagination system from the api for a lazy loading
-     * approach
+     * Searches the member completed challenges using the pagination system from the api for a lazy
+     * loading approach when populating the list
      */
     fun searchMemberChallenges() {
         viewModelScope.launch {
-            val completedChallengeWrapper =
+            val completedChallengesWrapper =
                 challengesListAdapter.getLastChallengeCompletedAt()?.let {
                     challengesRepository.getMemberCompletedChallenges(
                         getMemberUsername(),
@@ -36,14 +36,14 @@ class CompletedChallengesViewModel @ViewModelInject constructor(
                 }
 
             // Update the page number in case it increased during the search
-            pageNumber = completedChallengeWrapper.wasObtainedAtPage
+            pageNumber = completedChallengesWrapper.wasObtainedAtPage
 
-            if (completedChallengeWrapper.challengesList.isNotEmpty()) {
+            if (completedChallengesWrapper.challengesList.isNotEmpty()) {
                 // If the challenges were obtained from the api, set the page number to the next one
                 // Otherwise, keep it the same in order to be retried in the next load more request
-                if (completedChallengeWrapper.wasObtainedFromApi) pageNumber++
+                if (completedChallengesWrapper.wasObtainedFromApi) pageNumber++
 
-                challengesListAdapter.appendToChallengesList(completedChallengeWrapper.challengesList)
+                challengesListAdapter.appendToChallengesList(completedChallengesWrapper.challengesList)
             } else {
                 setEndOfListReachedStatus()
             }

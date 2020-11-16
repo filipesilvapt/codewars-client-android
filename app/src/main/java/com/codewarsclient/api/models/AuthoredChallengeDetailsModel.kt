@@ -11,7 +11,7 @@ data class AuthoredChallengeDetailsModel(
     val challengeName: String?,
 
     @SerializedName("rankName")
-    val rank: String,
+    val rankName: String?,
 
     @SerializedName("tags")
     val tagsList: List<String>,
@@ -24,6 +24,7 @@ data class AuthoredChallengeDetailsModel(
             username,
             challengeId,
             challengeName ?: "",
+            rankName ?: "",
             tagsList,
             languagesList
         )

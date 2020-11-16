@@ -2,18 +2,18 @@ package com.codewarsclient.ui.challenges.authored
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
-import com.codewarsclient.api.models.AuthoredChallengeDetailsModel
+import com.codewarsclient.database.entities.AuthoredChallengeEntity
 import kotlinx.android.synthetic.main.layout_row_item_authored_challenge.view.*
 
 class AuthoredChallengesItemViewHolder(private val challengeItemView: View) :
     RecyclerView.ViewHolder(challengeItemView) {
 
-    fun bind(item: AuthoredChallengeDetailsModel) {
+    fun bind(item: AuthoredChallengeEntity) {
         // Set the challenge name
         challengeItemView.text_title.text = item.challengeName
 
         // Set the rank name
-        challengeItemView.text_rank.text = item.rank
+        challengeItemView.text_rank.text = item.rankName
 
         // Set the languages list
         challengeItemView.text_languages.text = item.languagesList.joinToString { it }

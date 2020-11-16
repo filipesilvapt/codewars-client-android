@@ -17,6 +17,26 @@ class CompletedChallengesRepository @Inject constructor(
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : BaseRepository() {
 
+    /**
+     * Searches a subset of the member completed challenges.
+     *
+     * # API communication success
+     * - Requests the API a given page that should provide up to 200 challenges
+     * - Inserts them into the local database which ignores any repeated items that could origin
+     * from new challenges being done and shifting the API data through their pagination
+     * - Case #1: The received data contains at least one item older than the provided datetime
+     *   - Retrieves a subset of challenges from the local database, from a given datetime until it
+     *   reaches the datetime of the last challenge received from the API (could be 1 to 200
+     *   depending on the amount of repeated items received from the API)
+     * - Case #2: The received data is newer than the provided datetime
+     *   - The data was already inserted into the local database as it could contain new items that
+     *   we didn't have and will be useful later for offline usage
+     *   - Automatically requests the API for the next page in order to try and get older challenges
+     *
+     * # API communication failure or Network error
+     * - Retrieves a subset of up to 200 challenges from the local database, from a given datetime
+     * downwards
+     */
     suspend fun getMemberCompletedChallenges(
         username: String,
         pageNumber: Int,
@@ -43,7 +63,7 @@ class CompletedChallengesRepository @Inject constructor(
                             lastShownChallengeCompletedAt
                         )
                     ) {
-                        val challengesDatabaseList = dao.getChallengesBetweenDates(
+                        val challengesDatabaseList = dao.getChallengesFromMemberBetweenDates(
                             username,
                             lastShownChallengeCompletedAt,
                             lastApiChallengeCompletedAt
@@ -67,7 +87,7 @@ class CompletedChallengesRepository @Inject constructor(
             else -> CompletedChallengeWrapper(
                 false,
                 pageNumber,
-                dao.getChallengesFromDate(username, lastShownChallengeCompletedAt)
+                dao.getChallengesFromMemberAndDate(username, lastShownChallengeCompletedAt)
             )
         }
     }

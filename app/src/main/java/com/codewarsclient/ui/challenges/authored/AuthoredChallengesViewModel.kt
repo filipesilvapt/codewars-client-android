@@ -13,13 +13,18 @@ class AuthoredChallengesViewModel @ViewModelInject constructor(
 
     private val challengesListAdapter = AuthoredChallengesListAdapter()
 
+    /**
+     * Searches the member authored challenges to populate the list
+     */
     fun searchMemberChallenges() {
         viewModelScope.launch {
-            val challengesModel =
+            val completedChallengesWrapper =
                 challengesRepository.getMemberAuthoredChallenges(getMemberUsername())
 
-            challengesModel?.let {
-                challengesListAdapter.updateChallengesList(it.challengesList)
+            challengesListAdapter.updateChallengesList(completedChallengesWrapper.challengesList)
+
+            if (!completedChallengesWrapper.wasObtainedFromApi && completedChallengesWrapper.challengesList.isNotEmpty()) {
+                setOfflineLoadStatus()
             }
         }
     }

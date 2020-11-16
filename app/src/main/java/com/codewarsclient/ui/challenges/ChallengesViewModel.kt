@@ -13,10 +13,10 @@ abstract class ChallengesViewModel : ViewModel() {
     }
     val textUsername: LiveData<String> = _textUsername
 
-    private val _textLoadMoreStatusResId = MutableLiveData<Int>().apply {
+    private val _textStatusMessageResId = MutableLiveData<Int>().apply {
         value = null
     }
-    val textLoadMoreStatusResId: LiveData<Int> = _textLoadMoreStatusResId
+    val textStatusMessageResId: LiveData<Int> = _textStatusMessageResId
 
     var endOfListReached: Boolean = false
         private set
@@ -34,10 +34,14 @@ abstract class ChallengesViewModel : ViewModel() {
     fun setEndOfListReachedStatus() {
         endOfListReached = true
 
-        _textLoadMoreStatusResId.value = R.string.status_end_of_list
+        _textStatusMessageResId.value = R.string.status_end_of_list
     }
 
-    fun clearEndOfListStatus() {
-        _textLoadMoreStatusResId.value = null
+    fun setOfflineLoadStatus() {
+        _textStatusMessageResId.value = R.string.status_offline_load
+    }
+
+    fun clearStatusMessage() {
+        _textStatusMessageResId.value = null
     }
 }

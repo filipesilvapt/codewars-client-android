@@ -14,6 +14,9 @@ class AuthoredChallengeEntity(
     @ColumnInfo(name = "challenge_name")
     val challengeName: String = "",
 
+    @ColumnInfo(name = "rank_name")
+    val rankName: String = "",
+
     @ColumnInfo(name = "tags")
     val tagsList: List<String> = emptyList(),
 

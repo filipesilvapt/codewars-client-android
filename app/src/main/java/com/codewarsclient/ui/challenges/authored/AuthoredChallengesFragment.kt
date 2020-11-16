@@ -31,6 +31,7 @@ class AuthoredChallengesFragment : ChallengesFragment() {
     }
 
     override fun observeNavigationOptions() {
+        // Set the correct menu item as selected
         bottom_nav_view.selectedItemId = R.id.navigation_challenges_authored
 
         bottom_nav_view.setOnNavigationItemSelectedListener { item ->

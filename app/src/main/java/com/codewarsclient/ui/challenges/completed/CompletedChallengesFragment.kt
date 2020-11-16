@@ -35,6 +35,7 @@ class CompletedChallengesFragment : ChallengesFragment() {
     }
 
     override fun observeNavigationOptions() {
+        // Set the correct menu item as selected
         bottom_nav_view.selectedItemId = R.id.navigation_challenges_completed
 
         bottom_nav_view.setOnNavigationItemSelectedListener { item ->
@@ -75,7 +76,7 @@ class CompletedChallengesFragment : ChallengesFragment() {
 
                 // Clear the end of list status when the list is scrolled a few items up
                 if ((list_of_challenges.layoutManager as LinearLayoutManager).findLastCompletelyVisibleItemPosition() < positionToClearEndOfListStatus) {
-                    challengesViewModel.clearEndOfListStatus()
+                    challengesViewModel.clearStatusMessage()
                 }
 
                 // Load more challenges when the user scrolls to the bottom of the list unless the end of the list has been reached

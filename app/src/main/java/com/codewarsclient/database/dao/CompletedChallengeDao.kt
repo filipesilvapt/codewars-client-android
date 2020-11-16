@@ -13,13 +13,13 @@ interface CompletedChallengeDao {
     suspend fun insertChallengesList(member: List<CompletedChallengeEntity>)
 
     @Query("SELECT * FROM completed_challenges WHERE member_username LIKE :username AND datetime(completed_at) < datetime(:lastShownChallengeCompletedAt) ORDER BY datetime(completed_at) DESC LIMIT 200")
-    suspend fun getChallengesFromDate(
+    suspend fun getChallengesFromMemberAndDate(
         username: String,
         lastShownChallengeCompletedAt: String
     ): List<CompletedChallengeEntity>
 
     @Query("SELECT * FROM completed_challenges WHERE member_username LIKE :username AND datetime(completed_at) < datetime(:lastShownChallengeCompletedAt) AND datetime(completed_at) >= datetime(:lastApiChallengeCompletedAt) ORDER BY datetime(completed_at) DESC LIMIT 200")
-    suspend fun getChallengesBetweenDates(
+    suspend fun getChallengesFromMemberBetweenDates(
         username: String,
         lastShownChallengeCompletedAt: String,
         lastApiChallengeCompletedAt: String

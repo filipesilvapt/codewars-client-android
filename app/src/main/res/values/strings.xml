@@ -20,5 +20,6 @@
     <string name="fab_list_bottom">Go to the bottom of the list</string>
 
     <string name="status_end_of_list">You have reached the end of the list</string>
+    <string name="status_offline_load">Challenges loaded from local database!</string>
 
 </resources>

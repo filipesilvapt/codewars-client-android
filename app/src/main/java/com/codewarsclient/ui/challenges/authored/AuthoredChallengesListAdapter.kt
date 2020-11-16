@@ -6,12 +6,13 @@ import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.codewarsclient.R
 import com.codewarsclient.api.models.AuthoredChallengeDetailsModel
+import com.codewarsclient.database.entities.AuthoredChallengeEntity
 
 class AuthoredChallengesListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private var challengesList: MutableList<AuthoredChallengeDetailsModel> = ArrayList()
+    private var challengesList: MutableList<AuthoredChallengeEntity> = ArrayList()
 
-    val selectedChallenge = MutableLiveData<AuthoredChallengeDetailsModel?>()
+    val selectedChallenge = MutableLiveData<AuthoredChallengeEntity?>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return AuthoredChallengesItemViewHolder(
@@ -38,7 +39,7 @@ class AuthoredChallengesListAdapter : RecyclerView.Adapter<RecyclerView.ViewHold
     /**
      * Updates the challenges list with the received content
      */
-    fun updateChallengesList(receivedChallengesList: List<AuthoredChallengeDetailsModel>) {
+    fun updateChallengesList(receivedChallengesList: List<AuthoredChallengeEntity>) {
         challengesList.clear()
         challengesList.addAll(receivedChallengesList)
         notifyDataSetChanged()
