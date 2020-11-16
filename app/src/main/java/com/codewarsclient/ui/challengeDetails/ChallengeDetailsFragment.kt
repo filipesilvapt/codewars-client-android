@@ -9,7 +9,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.codewarsclient.databinding.FragmentChallengeDetailsBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ChallengeDetailsFragment : Fragment() {
 
     private val challengeDetailsViewModel: ChallengeDetailsViewModel by viewModels()

@@ -2,8 +2,9 @@ package com.codewarsclient.ui.challenges.completed
 
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.viewModelScope
-import androidx.recyclerview.widget.RecyclerView
+import com.codewarsclient.database.entities.CompletedChallengeEntity
 import com.codewarsclient.repositories.CompletedChallengesRepository
+import com.codewarsclient.ui.challenges.ChallengesListAdapter
 import com.codewarsclient.ui.challenges.ChallengesViewModel
 import kotlinx.coroutines.launch
 
@@ -54,7 +55,8 @@ class CompletedChallengesViewModel @ViewModelInject constructor(
         return challengesListAdapter.itemCount - 1
     }
 
-    override fun getListAdapter(): RecyclerView.Adapter<RecyclerView.ViewHolder> {
+    override fun getListAdapter(): ChallengesListAdapter<CompletedChallengeEntity> {
         return challengesListAdapter
     }
+
 }

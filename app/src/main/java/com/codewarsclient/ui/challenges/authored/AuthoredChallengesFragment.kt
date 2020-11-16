@@ -7,6 +7,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.navArgs
 import com.codewarsclient.R
+import com.codewarsclient.database.entities.AuthoredChallengeEntity
 import com.codewarsclient.ui.challenges.ChallengesFragment
 import com.codewarsclient.ui.challenges.ChallengesViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -52,6 +53,21 @@ class AuthoredChallengesFragment : ChallengesFragment() {
 
     override fun getViewModel(): ChallengesViewModel {
         return challengesViewModel
+    }
+
+    override fun observeSelectedChallenge() {
+        challengesViewModel.getListAdapter().selectedChallenge.observe(viewLifecycleOwner,
+            { challenge: AuthoredChallengeEntity? ->
+                challenge?.let {
+                    NavHostFragment.findNavController(this)
+                        .navigate(
+                            AuthoredChallengesFragmentDirections.actionOpenChallengeDetails(
+                                challenge.challengeId
+                            )
+                        )
+                }
+            }
+        )
     }
 
     companion object {

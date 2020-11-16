@@ -3,7 +3,6 @@ package com.codewarsclient.ui.challenges
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.recyclerview.widget.RecyclerView
 import com.codewarsclient.R
 
 abstract class ChallengesViewModel : ViewModel() {
@@ -29,7 +28,7 @@ abstract class ChallengesViewModel : ViewModel() {
         return _textUsername.value ?: ""
     }
 
-    abstract fun getListAdapter(): RecyclerView.Adapter<RecyclerView.ViewHolder>
+    abstract fun getListAdapter(): ChallengesListAdapter<*>
 
     fun setEndOfListReachedStatus() {
         endOfListReached = true
@@ -38,10 +37,11 @@ abstract class ChallengesViewModel : ViewModel() {
     }
 
     fun setOfflineLoadStatus() {
-        _textStatusMessageResId.value = R.string.status_offline_load
+        _textStatusMessageResId.value = R.string.status_challenges_offline_load
     }
 
     fun clearStatusMessage() {
         _textStatusMessageResId.value = null
     }
+
 }

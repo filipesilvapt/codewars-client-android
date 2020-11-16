@@ -2,8 +2,8 @@ package com.codewarsclient.repositories
 
 import com.codewarsclient.api.ApiService
 import com.codewarsclient.database.dao.ChallengeDetailsDao
-import com.codewarsclient.database.entities.ChallengeDetailsEntity
 import com.codewarsclient.repositories.helpers.ApiResultWrapper
+import com.codewarsclient.repositories.helpers.ChallengeDetailsWrapper
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import javax.inject.Inject
@@ -25,7 +25,7 @@ class ChallengeDetailsRepository @Inject constructor(
      * # API communication failure or Network error
      * - Attempts to obtain the challenge details from the local database
      */
-    suspend fun getChallengeDetails(challengeId: String): ChallengeDetailsEntity {
+    suspend fun getChallengeDetails(challengeId: String): ChallengeDetailsWrapper {
         val challengeDetailsApiResponse = safeApiCall(dispatcher) {
             apiService.getChallengeDetails(challengeId)
         }
@@ -37,10 +37,10 @@ class ChallengeDetailsRepository @Inject constructor(
 
                 dao.insertChallengeDetails(challengesDetails)
 
-                challengesDetails
+                ChallengeDetailsWrapper(true, challengesDetails)
             }
 
-            else -> dao.getChallengeDetails(challengeId)
+            else -> ChallengeDetailsWrapper(false, dao.getChallengeDetails(challengeId))
         }
     }
 

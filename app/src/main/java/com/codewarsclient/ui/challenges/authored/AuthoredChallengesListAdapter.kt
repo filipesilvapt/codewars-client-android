@@ -2,17 +2,14 @@ package com.codewarsclient.ui.challenges.authored
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.codewarsclient.R
-import com.codewarsclient.api.models.AuthoredChallengeDetailsModel
 import com.codewarsclient.database.entities.AuthoredChallengeEntity
+import com.codewarsclient.ui.challenges.ChallengesListAdapter
 
-class AuthoredChallengesListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class AuthoredChallengesListAdapter : ChallengesListAdapter<AuthoredChallengeEntity>() {
 
     private var challengesList: MutableList<AuthoredChallengeEntity> = ArrayList()
-
-    val selectedChallenge = MutableLiveData<AuthoredChallengeEntity?>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return AuthoredChallengesItemViewHolder(

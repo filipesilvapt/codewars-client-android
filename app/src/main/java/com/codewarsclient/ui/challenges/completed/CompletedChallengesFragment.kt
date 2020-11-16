@@ -9,6 +9,7 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.codewarsclient.R
+import com.codewarsclient.database.entities.CompletedChallengeEntity
 import com.codewarsclient.ui.challenges.ChallengesFragment
 import com.codewarsclient.ui.challenges.ChallengesViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -89,6 +90,21 @@ class CompletedChallengesFragment : ChallengesFragment() {
                 }
             }
         })
+    }
+
+    override fun observeSelectedChallenge() {
+        challengesViewModel.getListAdapter().selectedChallenge.observe(viewLifecycleOwner,
+            { challenge: CompletedChallengeEntity? ->
+                challenge?.let {
+                    NavHostFragment.findNavController(this)
+                        .navigate(
+                            CompletedChallengesFragmentDirections.actionOpenChallengeDetails(
+                                challenge.challengeId
+                            )
+                        )
+                }
+            }
+        )
     }
 
     companion object {

@@ -20,7 +20,7 @@ data class ChallengeDetailsModel(
     val languagesList: List<String>,
 
     @SerializedName("description")
-    val description: String
+    val description: String?
 ) {
     fun toChallengeDetailsEntity(): ChallengeDetailsEntity {
         return ChallengeDetailsEntity(
@@ -29,7 +29,7 @@ data class ChallengeDetailsModel(
             rank?.name ?: "",
             tagsList,
             languagesList,
-            description
+            description ?: ""
         )
     }
 }

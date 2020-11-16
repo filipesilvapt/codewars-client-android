@@ -32,6 +32,8 @@ abstract class ChallengesFragment : Fragment() {
         observeNavigationOptions()
 
         observeScrollActions()
+
+        observeSelectedChallenge()
     }
 
     /**
@@ -60,6 +62,11 @@ abstract class ChallengesFragment : Fragment() {
             }
         }
     }
+
+    /**
+     * Observe the action of selecting a challenge
+     */
+    abstract fun observeSelectedChallenge()
 
     companion object {
         private val TAG: String = ChallengesFragment::class.java.simpleName

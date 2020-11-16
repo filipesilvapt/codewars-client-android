@@ -2,16 +2,14 @@ package com.codewarsclient.ui.challenges.completed
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.codewarsclient.R
 import com.codewarsclient.database.entities.CompletedChallengeEntity
+import com.codewarsclient.ui.challenges.ChallengesListAdapter
 
-class CompletedChallengesListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class CompletedChallengesListAdapter : ChallengesListAdapter<CompletedChallengeEntity>() {
 
     private var challengesList: MutableList<CompletedChallengeEntity> = ArrayList()
-
-    val selectedChallenge = MutableLiveData<CompletedChallengeEntity?>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return CompletedChallengesItemViewHolder(

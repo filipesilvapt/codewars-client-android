@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".ui.challengeDetails.ChallengeDetailsFragment">
 
     <data>
+
+        <import type="android.view.View" />
 
         <variable
             name="viewModel"
@@ -33,12 +36,17 @@
                 app:layout_constraintBottom_toTopOf="@+id/layout_rank"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="packed" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/layout_rank"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:visibility='@{viewModel.textRank == "" ? View.GONE : View.VISIBLE}'
                 app:layout_constraintBottom_toTopOf="@+id/text_languages"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -73,8 +81,11 @@
 
             <TextView
                 android:id="@+id/text_languages"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
                 android:text="@{viewModel.textLanguages}"
                 android:textAlignment="center"
                 android:textSize="16sp"
@@ -85,27 +96,59 @@
 
             <TextView
                 android:id="@+id/text_tags"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
                 android:text="@{viewModel.textTags}"
                 android:textAlignment="center"
                 android:textSize="16sp"
-                app:layout_constraintBottom_toTopOf="@+id/text_description"
+                app:layout_constraintBottom_toTopOf="@+id/layout_description"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/text_languages" />
 
-            <TextView
-                android:id="@+id/text_description"
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/layout_description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@{viewModel.textDescription}"
-                android:textAlignment="textStart"
+                android:layout_margin="8dp"
+                android:elevation="2dp"
+                android:visibility='@{viewModel.textDescription == "" ? View.GONE : View.VISIBLE}'
+                app:layout_constraintBottom_toTopOf="@+id/text_status_message"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/text_tags">
+
+                <TextView
+                    android:id="@+id/text_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:text="@{viewModel.textDescription}"
+                    android:textAlignment="textStart"
+                    android:textSize="16sp" />
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <TextView
+                android:id="@+id/text_status_message"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:textAlignment="center"
+                android:textColor="@color/purple_200"
                 android:textSize="16sp"
+                android:textStyle="bold"
+                android:visibility="@{viewModel.textStatusMessageResId == null ? View.GONE : View.VISIBLE}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/text_tags" />
+                app:layout_constraintTop_toBottomOf="@+id/layout_description"
+                bind:textResourceId="@{viewModel.textStatusMessageResId}" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
