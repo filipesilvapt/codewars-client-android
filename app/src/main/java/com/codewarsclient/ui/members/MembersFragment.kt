@@ -108,6 +108,7 @@ class MembersFragment : Fragment() {
         membersViewModel.selectedMember.observe(viewLifecycleOwner,
             { member: MemberEntity? ->
                 member?.let {
+                    hideKeyboard()
                     NavHostFragment.findNavController(this)
                         .navigate(MembersFragmentDirections.actionOpenChallenges(member.username))
                 }
