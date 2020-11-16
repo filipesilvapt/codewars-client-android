@@ -5,8 +5,10 @@ import com.codewarsclient.api.ApiService
 import com.codewarsclient.database.dao.MemberDao
 import com.codewarsclient.database.entities.MemberEntity
 import com.codewarsclient.repositories.helpers.ApiResultWrapper
+import com.codewarsclient.repositories.helpers.RepositoryResultState
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
+import java.net.HttpURLConnection
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -30,17 +32,32 @@ class MemberRepository @Inject constructor(
      *
      * Returns true if it was able to find the member, false otherwise.
      */
-    suspend fun searchMemberAndSave(username: String): Boolean {
+    suspend fun searchMemberAndSave(username: String): RepositoryResultState {
         val memberSearchApiResponse = safeApiCall(dispatcher) {
             apiService.getMemberByName(username)
         }
 
         return when (memberSearchApiResponse) {
-            is ApiResultWrapper.NetworkError -> updateMemberLocalSearchIfExists(username)
-            is ApiResultWrapper.Failure -> updateMemberLocalSearchIfExists(username)
+            is ApiResultWrapper.NetworkError -> {
+                if (updateMemberLocalSearchIfExists(username)) {
+                    RepositoryResultState.SUCCESS_DB_OFFLINE
+                } else {
+                    RepositoryResultState.NOT_FOUND_DB_OFFLINE
+                }
+            }
+            is ApiResultWrapper.Failure -> {
+                if (updateMemberLocalSearchIfExists(username)) {
+                    RepositoryResultState.SUCCESS_DB_AFTER_API
+                } else {
+                    when (memberSearchApiResponse.code) {
+                        HttpURLConnection.HTTP_NOT_FOUND -> RepositoryResultState.NOT_FOUND_API
+                        else -> RepositoryResultState.ERROR_API
+                    }
+                }
+            }
             is ApiResultWrapper.Success -> {
                 dao.insertMember(memberSearchApiResponse.value.toMemberEntity())
-                true
+                RepositoryResultState.SUCCESS_API
             }
         }
     }

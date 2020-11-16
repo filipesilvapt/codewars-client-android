@@ -33,7 +33,8 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_chainStyle="packed"
             app:startIconDrawable="@drawable/ic_person_black_24dp"
-            bind:errorTextResId="@{viewModel.searchErrorTextResId}">
+            bind:errorTextResId="@{viewModel.searchErrorTextResId}"
+            bind:helperTextResId="@{viewModel.searchHelperTextResId}">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/input_text_member_name"

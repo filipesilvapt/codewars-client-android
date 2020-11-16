@@ -7,7 +7,11 @@
 
     <string name="hint_search_member">Member name</string>
     <string name="error_search_member_not_found">Member not found</string>
+    <string name="error_search_member_found_db_after_api">Failed to communicate with server. Retrieved member from local storage.</string>
     <string name="error_search_member_empty">Member name cannot be empty</string>
+    <string name="error_search_member_not_found_api_error">Service error, try again later</string>
+    <string name="message_search_member_found_offline">Member found in offline mode</string>
+    <string name="message_search_member_not_found_offline">Member not found, check internet connection</string>
     <string name="header_rank">Rank</string>
     <string name="header_username">Username</string>
     <string name="header_language">Language (pts)</string>

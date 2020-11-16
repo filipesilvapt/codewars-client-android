@@ -20,6 +20,15 @@ fun TextInputLayout.setErrorTextResId(resource: Int?) {
     }
 }
 
+@BindingAdapter("bind:helperTextResId")
+fun TextInputLayout.setHelperTextResId(resource: Int?) {
+    resource?.let {
+        this.helperText = this.context.getString(it)
+    } ?: run {
+        this.helperText = null
+    }
+}
+
 @BindingAdapter("bind:textResourceId")
 fun TextView.setTextResourceId(resource: Int?) {
     resource?.let { this.setText(it) }

@@ -1,5 +1,6 @@
 package com.codewarsclient.ui.members
 
+import android.util.Log
 import android.view.View
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
@@ -9,6 +10,7 @@ import androidx.lifecycle.viewModelScope
 import com.codewarsclient.R
 import com.codewarsclient.database.entities.MemberEntity
 import com.codewarsclient.repositories.MemberRepository
+import com.codewarsclient.repositories.helpers.RepositoryResultState
 import kotlinx.coroutines.launch
 
 class MembersViewModel @ViewModelInject constructor(
@@ -31,12 +33,17 @@ class MembersViewModel @ViewModelInject constructor(
     }
     val searchErrorTextResId: LiveData<Int> = _searchErrorTextResId
 
+    private val _searchHelperTextResId = MutableLiveData<Int>().apply {
+        value = null
+    }
+    val searchHelperTextResId: LiveData<Int> = _searchHelperTextResId
+
     /**
      * Listener for when the focus changes on the member search field
      */
     val onMemberSearchFieldFocusChangedListener = View.OnFocusChangeListener { _, hasFocus ->
         if (hasFocus) {
-            clearErrorMessage()
+            clearSearchFieldMessages()
         }
     }
 
@@ -63,10 +70,13 @@ class MembersViewModel @ViewModelInject constructor(
      */
     private fun getMemberFromRepository(memberName: String) {
         viewModelScope.launch {
-            val memberFound = memberRepository.searchMemberAndSave(memberName)
-
-            if (!memberFound) {
-                setErrorMessageMemberNotFound()
+            when (val result = memberRepository.searchMemberAndSave(memberName)) {
+                RepositoryResultState.SUCCESS_DB_AFTER_API -> setHelperMessage(R.string.error_search_member_found_db_after_api)
+                RepositoryResultState.SUCCESS_DB_OFFLINE -> setHelperMessage(R.string.message_search_member_found_offline)
+                RepositoryResultState.NOT_FOUND_API -> setErrorMessage(R.string.error_search_member_not_found)
+                RepositoryResultState.NOT_FOUND_DB_OFFLINE -> setHelperMessage(R.string.message_search_member_not_found_offline)
+                RepositoryResultState.ERROR_API -> setErrorMessage(R.string.error_search_member_not_found_api_error)
+                else -> Log.v(TAG, "Repository state $result not treated")
             }
         }
     }
@@ -75,22 +85,30 @@ class MembersViewModel @ViewModelInject constructor(
      * Sets the error message for an empty field and clears the search box to remove any spaces
      */
     private fun setErrorMessageEmptyField() {
-        _searchErrorTextResId.value = R.string.error_search_member_empty
+        setErrorMessage(R.string.error_search_member_empty)
         usernameToSearch.value = ""
     }
 
     /**
-     * Sets the error message for a member not found
+     * Sets the error message with a given resource id
      */
-    private fun setErrorMessageMemberNotFound() {
-        _searchErrorTextResId.value = R.string.error_search_member_not_found
+    private fun setErrorMessage(resourceTextId: Int) {
+        _searchErrorTextResId.value = resourceTextId
     }
 
     /**
-     * Sets the error message for a member not found
+     * Sets the helper message with a given resource id
      */
-    private fun clearErrorMessage() {
+    private fun setHelperMessage(resourceTextId: Int) {
+        _searchHelperTextResId.value = resourceTextId
+    }
+
+    /**
+     * Clears the helper and error messages from the search field
+     */
+    private fun clearSearchFieldMessages() {
         _searchErrorTextResId.value = null
+        _searchHelperTextResId.value = null
     }
 
     /**
@@ -98,6 +116,10 @@ class MembersViewModel @ViewModelInject constructor(
      */
     fun sortMembersList(sortOption: MembersSortOption) {
         membersListAdapter.sortMembersList(sortOption)
+    }
+
+    companion object {
+        private val TAG: String = MembersViewModel::class.java.simpleName
     }
 
 }
