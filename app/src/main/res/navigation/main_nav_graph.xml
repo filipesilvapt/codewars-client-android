@@ -58,5 +58,11 @@
         android:id="@+id/navigation_challenge_details"
         android:name="com.codewarsclient.ui.challengeDetails.ChallengeDetailsFragment"
         android:label="@string/title_challenge_details"
-        tools:layout="@layout/fragment_challenge_details" />
+        tools:layout="@layout/fragment_challenge_details">
+        <argument
+            android:name="challengeId"
+            android:defaultValue=""
+            app:argType="string" />
+    </fragment>
+
 </navigation>

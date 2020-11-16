@@ -2,9 +2,11 @@ package com.codewarsclient.di
 
 import com.codewarsclient.api.ApiService
 import com.codewarsclient.database.dao.AuthoredChallengeDao
+import com.codewarsclient.database.dao.ChallengeDetailsDao
 import com.codewarsclient.database.dao.CompletedChallengeDao
 import com.codewarsclient.database.dao.MemberDao
 import com.codewarsclient.repositories.AuthoredChallengesRepository
+import com.codewarsclient.repositories.ChallengeDetailsRepository
 import com.codewarsclient.repositories.CompletedChallengesRepository
 import com.codewarsclient.repositories.MemberRepository
 import dagger.Module
@@ -39,6 +41,14 @@ object RepositoriesModule {
         apiService: ApiService
     ): AuthoredChallengesRepository {
         return AuthoredChallengesRepository(authoredChallengesDao, apiService, Dispatchers.IO)
+    }
+
+    @Provides
+    fun provideChallengeDetailsRepository(
+        challengeDetailsDao: ChallengeDetailsDao,
+        apiService: ApiService
+    ): ChallengeDetailsRepository {
+        return ChallengeDetailsRepository(challengeDetailsDao, apiService, Dispatchers.IO)
     }
 
 }

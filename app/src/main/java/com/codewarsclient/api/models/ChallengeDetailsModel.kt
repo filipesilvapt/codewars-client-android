@@ -23,12 +23,10 @@ data class ChallengeDetailsModel(
     val description: String
 ) {
     fun toChallengeDetailsEntity(): ChallengeDetailsEntity {
-        val rankName = rank?.name ?: ""
-
         return ChallengeDetailsEntity(
             challengeId,
             challengeName ?: "",
-            rankName,
+            rank?.name ?: "",
             tagsList,
             languagesList,
             description
