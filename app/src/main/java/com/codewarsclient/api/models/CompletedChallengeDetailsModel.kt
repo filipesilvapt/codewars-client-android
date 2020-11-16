@@ -1,6 +1,6 @@
 package com.codewarsclient.api.models
 
-import com.codewarsclient.database.entities.CompletedChallengesEntity
+import com.codewarsclient.database.entities.CompletedChallengeEntity
 import com.google.gson.annotations.SerializedName
 
 data class CompletedChallengeDetailsModel(
@@ -8,7 +8,7 @@ data class CompletedChallengeDetailsModel(
     val challengeId: String,
 
     @SerializedName("name")
-    val challengeName: String,
+    val challengeName: String?,
 
     @SerializedName("completedLanguages")
     val languagesList: List<String>,
@@ -16,11 +16,11 @@ data class CompletedChallengeDetailsModel(
     @SerializedName("completedAt")
     val completedAt: String
 ) {
-    fun toCompletedChallengeEntity(username: String): CompletedChallengesEntity {
-        return CompletedChallengesEntity(
+    fun toCompletedChallengeEntity(username: String): CompletedChallengeEntity {
+        return CompletedChallengeEntity(
             username,
             challengeId,
-            challengeName,
+            challengeName ?: "",
             languagesList,
             completedAt
         )

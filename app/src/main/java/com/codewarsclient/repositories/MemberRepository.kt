@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import com.codewarsclient.api.ApiService
 import com.codewarsclient.database.dao.MemberDao
 import com.codewarsclient.database.entities.MemberEntity
+import com.codewarsclient.repositories.helpers.ApiResultWrapper
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import javax.inject.Inject
@@ -35,9 +36,9 @@ class MemberRepository @Inject constructor(
         }
 
         return when (memberSearchApiResponse) {
-            is RepositoryResultWrapper.NetworkError -> updateMemberLocalSearchIfExists(username)
-            is RepositoryResultWrapper.Failure -> updateMemberLocalSearchIfExists(username)
-            is RepositoryResultWrapper.Success -> {
+            is ApiResultWrapper.NetworkError -> updateMemberLocalSearchIfExists(username)
+            is ApiResultWrapper.Failure -> updateMemberLocalSearchIfExists(username)
+            is ApiResultWrapper.Success -> {
                 dao.insertMember(memberSearchApiResponse.value.toMemberEntity())
                 true
             }

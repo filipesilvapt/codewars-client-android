@@ -2,6 +2,7 @@ package com.codewarsclient.di
 
 import android.content.Context
 import com.codewarsclient.database.AppDatabase
+import com.codewarsclient.database.dao.AuthoredChallengeDao
 import com.codewarsclient.database.dao.CompletedChallengeDao
 import com.codewarsclient.database.dao.MemberDao
 import dagger.Module
@@ -31,6 +32,13 @@ object DatabaseModule {
         database: AppDatabase
     ): CompletedChallengeDao {
         return database.completedChallengeDao()
+    }
+
+    @Provides
+    fun provideAuthoredChallengeDao(
+        database: AppDatabase
+    ): AuthoredChallengeDao {
+        return database.authoredChallengeDao()
     }
 
 }

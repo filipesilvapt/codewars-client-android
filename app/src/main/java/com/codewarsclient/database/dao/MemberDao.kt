@@ -13,9 +13,9 @@ interface MemberDao {
     @Update(onConflict = OnConflictStrategy.REPLACE)
     suspend fun updateMember(member: MemberEntity)
 
-    @Query("SELECT * FROM member ORDER BY time_of_search DESC LIMIT 5")
+    @Query("SELECT * FROM members ORDER BY time_of_search DESC LIMIT 5")
     fun getLastSearchedMembers(): LiveData<List<MemberEntity>>
 
-    @Query("SELECT * FROM member WHERE username LIKE :username")
+    @Query("SELECT * FROM members WHERE username LIKE :username")
     suspend fun getMember(username: String): MemberEntity?
 }

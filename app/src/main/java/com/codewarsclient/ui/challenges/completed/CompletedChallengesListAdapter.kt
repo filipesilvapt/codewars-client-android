@@ -5,13 +5,13 @@ import android.view.ViewGroup
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.codewarsclient.R
-import com.codewarsclient.database.entities.CompletedChallengesEntity
+import com.codewarsclient.database.entities.CompletedChallengeEntity
 
 class CompletedChallengesListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private var challengesList: MutableList<CompletedChallengesEntity> = ArrayList()
+    private var challengesList: MutableList<CompletedChallengeEntity> = ArrayList()
 
-    val selectedChallenge = MutableLiveData<CompletedChallengesEntity?>()
+    val selectedChallenge = MutableLiveData<CompletedChallengeEntity?>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return CompletedChallengesItemViewHolder(
@@ -38,9 +38,20 @@ class CompletedChallengesListAdapter : RecyclerView.Adapter<RecyclerView.ViewHol
     /**
      * Updates the challenges list with the received content
      */
-    fun appendToChallengesList(receivedChallengesList: List<CompletedChallengesEntity>) {
+    fun appendToChallengesList(receivedChallengesList: List<CompletedChallengeEntity>) {
         challengesList.addAll(receivedChallengesList)
         notifyDataSetChanged()
+    }
+
+    /**
+     * Returns the completed date time of the last challenge of the list
+     */
+    fun getLastChallengeCompletedAt(): String? {
+        return if (challengesList.isNullOrEmpty()) {
+            null
+        } else {
+            challengesList.last().completedAt
+        }
     }
 
 }

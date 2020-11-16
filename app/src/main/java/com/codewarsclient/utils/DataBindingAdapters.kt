@@ -1,5 +1,6 @@
 package com.codewarsclient.utils
 
+import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.textfield.TextInputLayout
@@ -17,4 +18,9 @@ fun TextInputLayout.setErrorTextResId(resource: Int?) {
     } ?: run {
         this.error = null
     }
+}
+
+@BindingAdapter("bind:textResourceId")
+fun TextView.setTextResourceId(resource: Int?) {
+    resource?.let { this.setText(it) }
 }

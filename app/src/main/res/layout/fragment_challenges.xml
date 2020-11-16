@@ -7,6 +7,8 @@
 
     <data>
 
+        <import type="android.view.View" />
+
         <variable
             name="viewModel"
             type="com.codewarsclient.ui.challenges.ChallengesViewModel" />
@@ -49,11 +51,28 @@
             android:layout_height="0dp"
             android:scrollbars="vertical"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintBottom_toTopOf="@+id/bottom_nav_view"
+            app:layout_constraintBottom_toTopOf="@+id/text_load_more_status"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/view_divider"
             bind:listAdapter="@{viewModel.listAdapter}" />
+
+        <TextView
+            android:id="@+id/text_load_more_status"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:text="@string/status_end_of_list"
+            android:textAlignment="center"
+            android:textColor="@color/purple_200"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:visibility="@{viewModel.textLoadMoreStatusResId == null ? View.GONE : View.VISIBLE}"
+            app:layout_constraintBottom_toTopOf="@+id/bottom_nav_view"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/list_of_challenges"
+            bind:textResourceId="@{viewModel.textLoadMoreStatusResId}" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_list_top"

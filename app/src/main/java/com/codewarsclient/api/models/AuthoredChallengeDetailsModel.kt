@@ -1,5 +1,6 @@
 package com.codewarsclient.api.models
 
+import com.codewarsclient.database.entities.AuthoredChallengeEntity
 import com.google.gson.annotations.SerializedName
 
 data class AuthoredChallengeDetailsModel(
@@ -7,7 +8,7 @@ data class AuthoredChallengeDetailsModel(
     val challengeId: String,
 
     @SerializedName("name")
-    val challengeName: String,
+    val challengeName: String?,
 
     @SerializedName("rankName")
     val rank: String,
@@ -17,4 +18,14 @@ data class AuthoredChallengeDetailsModel(
 
     @SerializedName("languages")
     val languagesList: List<String>,
-)
+) {
+    fun toAuthoredChallengeEntity(username: String): AuthoredChallengeEntity {
+        return AuthoredChallengeEntity(
+            username,
+            challengeId,
+            challengeName ?: "",
+            tagsList,
+            languagesList
+        )
+    }
+}

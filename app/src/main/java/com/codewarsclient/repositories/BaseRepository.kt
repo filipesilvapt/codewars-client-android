@@ -1,5 +1,6 @@
 package com.codewarsclient.repositories
 
+import com.codewarsclient.repositories.helpers.ApiResultWrapper
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
@@ -10,19 +11,19 @@ open class BaseRepository {
     suspend fun <T> safeApiCall(
         dispatcher: CoroutineDispatcher,
         apiCall: suspend () -> T
-    ): RepositoryResultWrapper<T> {
+    ): ApiResultWrapper<T> {
         return withContext(dispatcher) {
             try {
-                RepositoryResultWrapper.Success(apiCall.invoke())
+                ApiResultWrapper.Success(apiCall.invoke())
             } catch (throwable: Throwable) {
                 when (throwable) {
-                    is IOException -> RepositoryResultWrapper.NetworkError
+                    is IOException -> ApiResultWrapper.NetworkError
                     is HttpException -> {
                         val code = throwable.code()
-                        RepositoryResultWrapper.Failure(code)
+                        ApiResultWrapper.Failure(code)
                     }
                     else -> {
-                        RepositoryResultWrapper.Failure(null)
+                        ApiResultWrapper.Failure(null)
                     }
                 }
             }

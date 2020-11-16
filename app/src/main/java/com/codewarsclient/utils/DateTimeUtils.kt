@@ -12,11 +12,31 @@ object DateTimeUtils {
     /**
      * Converts a date from the api format to the format that we want to display
      */
-    fun convertDateTimeToDisplay(dateToConvert: String): String {
+    fun convertApiDateTimeToDisplay(dateToConvert: String): String {
         val apiFormat: DateFormat = SimpleDateFormat(FORMAT_DATE_TIME_API, Locale.getDefault())
         val displayFormat: DateFormat =
             SimpleDateFormat(FORMAT_DATE_TIME_DISPLAY, Locale.getDefault())
         val date = apiFormat.parse(dateToConvert)
         return displayFormat.format(date ?: "")
+    }
+
+    /**
+     * Returns the current date and time in the api format
+     */
+    fun getCurrentApiDateTime(): String {
+        val apiFormat: DateFormat = SimpleDateFormat(FORMAT_DATE_TIME_API, Locale.getDefault())
+        return apiFormat.format(Date())
+    }
+
+    /**
+     * Returns true if the first date time is older than the second date time
+     */
+    fun isOneApiDateTimeOlderThanTheOther(firstDateTime: String, secondDateTime: String): Boolean {
+        val apiFormat: DateFormat = SimpleDateFormat(FORMAT_DATE_TIME_API, Locale.getDefault())
+        val firstDate = apiFormat.parse(firstDateTime)
+        val secondDate = apiFormat.parse(secondDateTime)
+        return secondDate?.let {
+            firstDate?.before(it) ?: false
+        } ?: false
     }
 }
