@@ -5,10 +5,8 @@ import com.codewarsclient.database.dao.AuthoredChallengeDao
 import com.codewarsclient.database.dao.ChallengeDetailsDao
 import com.codewarsclient.database.dao.CompletedChallengeDao
 import com.codewarsclient.database.dao.MemberDao
-import com.codewarsclient.repositories.AuthoredChallengesRepository
-import com.codewarsclient.repositories.ChallengeDetailsRepository
-import com.codewarsclient.repositories.CompletedChallengesRepository
-import com.codewarsclient.repositories.MemberRepository
+import com.codewarsclient.repositories.*
+import com.codewarsclient.repositories.interfaces.MemberRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -24,7 +22,7 @@ object RepositoriesModule {
         memberDao: MemberDao,
         apiService: ApiService
     ): MemberRepository {
-        return MemberRepository(memberDao, apiService, Dispatchers.IO)
+        return DefaultMemberRepository(memberDao, apiService, Dispatchers.IO)
     }
 
     @Provides

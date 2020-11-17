@@ -1,0 +1,62 @@
+{
+  "username": "wichu",
+  "name": "",
+  "honor": 67020,
+  "clan": "",
+  "leaderboardPosition": 11,
+  "skills": [
+    "javascript",
+    "c#",
+    "f#"
+  ],
+  "ranks": {
+    "overall": {
+      "rank": -2,
+      "name": "2 kyu",
+      "color": "purple",
+      "score": 7022
+    },
+    "languages": {
+      "javascript": {
+        "rank": -2,
+        "name": "2 kyu",
+        "color": "purple",
+        "score": 6212
+      },
+      "csharp": {
+        "rank": -6,
+        "name": "6 kyu",
+        "color": "yellow",
+        "score": 161
+      },
+      "haskell": {
+        "rank": -5,
+        "name": "5 kyu",
+        "color": "yellow",
+        "score": 248
+      },
+      "python": {
+        "rank": -6,
+        "name": "6 kyu",
+        "color": "yellow",
+        "score": 153
+      },
+      "fsharp": {
+        "rank": -7,
+        "name": "7 kyu",
+        "color": "white",
+        "score": 60
+      },
+      "sql": {
+        "rank": -7,
+        "name": "7 kyu",
+        "color": "white",
+        "score": 50
+      }
+    }
+  },
+  "codeChallenges": {
+    "totalAuthored": 58,
+    "totalCompleted": 1946
+  }
+}

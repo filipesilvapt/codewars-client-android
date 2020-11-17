@@ -9,7 +9,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.codewarsclient.R
 import com.codewarsclient.database.entities.MemberEntity
-import com.codewarsclient.repositories.MemberRepository
+import com.codewarsclient.repositories.interfaces.MemberRepository
 import com.codewarsclient.repositories.helpers.RepositoryResultState
 import kotlinx.coroutines.launch
 
@@ -61,14 +61,14 @@ class MembersViewModel @ViewModelInject constructor(
             // Update the value with the normalised one
             usernameToSearch.value = memberName
 
-            getMemberFromRepository(memberName)
+            searchMemberAndSave(memberName)
         }
     }
 
     /**
-     * Gets the member from the repository
+     * Searches the member and saves it using the repository
      */
-    private fun getMemberFromRepository(memberName: String) {
+    private fun searchMemberAndSave(memberName: String) {
         viewModelScope.launch {
             when (val result = memberRepository.searchMemberAndSave(memberName)) {
                 RepositoryResultState.SUCCESS_DB_AFTER_API -> setHelperMessage(R.string.error_search_member_found_db_after_api)

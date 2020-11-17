@@ -6,6 +6,7 @@ import com.codewarsclient.database.dao.MemberDao
 import com.codewarsclient.database.entities.MemberEntity
 import com.codewarsclient.repositories.helpers.ApiResultWrapper
 import com.codewarsclient.repositories.helpers.RepositoryResultState
+import com.codewarsclient.repositories.interfaces.MemberRepository
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import java.net.HttpURLConnection
@@ -13,16 +14,16 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class MemberRepository @Inject constructor(
+class DefaultMemberRepository @Inject constructor(
     private val dao: MemberDao,
     private val apiService: ApiService,
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO
-) : BaseRepository() {
+) : BaseRepository(), MemberRepository {
 
     /**
      * Returns an observable object for a list of the last searched members.
      */
-    fun getLastSearchedMembers(): LiveData<List<MemberEntity>> {
+    override fun getLastSearchedMembers(): LiveData<List<MemberEntity>> {
         return dao.getLastSearchedMembers()
     }
 
@@ -32,7 +33,7 @@ class MemberRepository @Inject constructor(
      *
      * Returns true if it was able to find the member, false otherwise.
      */
-    suspend fun searchMemberAndSave(username: String): RepositoryResultState {
+    override suspend fun searchMemberAndSave(username: String): RepositoryResultState {
         val memberSearchApiResponse = safeApiCall(dispatcher) {
             apiService.getMemberByName(username)
         }
