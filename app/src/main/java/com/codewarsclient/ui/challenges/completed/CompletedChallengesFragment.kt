@@ -83,7 +83,7 @@ class CompletedChallengesFragment : ChallengesFragment() {
                 // Load more challenges when the user scrolls to the bottom of the list unless the end of the list has been reached
                 if ((list_of_challenges.layoutManager as LinearLayoutManager).findLastCompletelyVisibleItemPosition() == challengesViewModel.getLastItemPosition()) {
                     if (challengesViewModel.endOfListReached) {
-                        challengesViewModel.setEndOfListReachedStatus()
+                        challengesViewModel.setNoMoreResultsStatus()
                     } else {
                         challengesViewModel.searchMemberChallenges()
                     }

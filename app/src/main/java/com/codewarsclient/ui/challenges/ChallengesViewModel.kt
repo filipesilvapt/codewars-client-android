@@ -30,10 +30,10 @@ abstract class ChallengesViewModel : ViewModel() {
 
     abstract fun getListAdapter(): ChallengesListAdapter<*>
 
-    fun setEndOfListReachedStatus() {
+    fun setNoMoreResultsStatus() {
         endOfListReached = true
 
-        _textStatusMessageResId.value = R.string.status_end_of_list
+        _textStatusMessageResId.value = R.string.status_no_more_results
     }
 
     fun setOfflineLoadStatus() {

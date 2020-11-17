@@ -47,7 +47,7 @@ class CompletedChallengesViewModel @ViewModelInject constructor(
                 challengesListAdapter.appendToChallengesList(completedChallengesWrapper.challengesList)
             } else if (challengesListAdapter.itemCount > 0) {
                 // Only show end of list reached if the list has at least one item
-                setEndOfListReachedStatus()
+                setNoMoreResultsStatus()
             }
         }
     }
