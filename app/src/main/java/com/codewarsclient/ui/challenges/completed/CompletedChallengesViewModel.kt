@@ -3,7 +3,7 @@ package com.codewarsclient.ui.challenges.completed
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.viewModelScope
 import com.codewarsclient.database.entities.CompletedChallengeEntity
-import com.codewarsclient.repositories.CompletedChallengesRepository
+import com.codewarsclient.repositories.interfaces.CompletedChallengesRepository
 import com.codewarsclient.ui.challenges.ChallengesListAdapter
 import com.codewarsclient.ui.challenges.ChallengesViewModel
 import kotlinx.coroutines.launch

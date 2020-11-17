@@ -4,6 +4,7 @@ import com.codewarsclient.api.ApiService
 import com.codewarsclient.database.dao.CompletedChallengeDao
 import com.codewarsclient.repositories.helpers.ApiResultWrapper
 import com.codewarsclient.repositories.helpers.CompletedChallengeWrapper
+import com.codewarsclient.repositories.interfaces.CompletedChallengesRepository
 import com.codewarsclient.utils.DateTimeUtils
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
@@ -11,11 +12,11 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class CompletedChallengesRepository @Inject constructor(
+class DefaultCompletedChallengesRepository @Inject constructor(
     private val dao: CompletedChallengeDao,
     private val apiService: ApiService,
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO
-) : BaseRepository() {
+) : BaseRepository(), CompletedChallengesRepository {
 
     /**
      * Searches a subset of the member completed challenges.
@@ -37,10 +38,10 @@ class CompletedChallengesRepository @Inject constructor(
      * - Retrieves a subset of up to 200 challenges from the local database, from a given datetime
      * downwards
      */
-    suspend fun getMemberCompletedChallenges(
+    override suspend fun getMemberCompletedChallenges(
         username: String,
         pageNumber: Int,
-        lastShownChallengeCompletedAt: String = DateTimeUtils.getCurrentApiDateTime()
+        lastShownChallengeCompletedAt: String
     ): CompletedChallengeWrapper {
         val challengesApiResponse = safeApiCall(dispatcher) {
             apiService.getMemberCompletedChallenges(username, pageNumber)

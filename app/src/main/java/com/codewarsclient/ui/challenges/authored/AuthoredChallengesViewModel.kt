@@ -3,7 +3,7 @@ package com.codewarsclient.ui.challenges.authored
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.viewModelScope
 import com.codewarsclient.database.entities.AuthoredChallengeEntity
-import com.codewarsclient.repositories.AuthoredChallengesRepository
+import com.codewarsclient.repositories.interfaces.AuthoredChallengesRepository
 import com.codewarsclient.ui.challenges.ChallengesListAdapter
 import com.codewarsclient.ui.challenges.ChallengesViewModel
 import kotlinx.coroutines.launch

@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.codewarsclient.R
-import com.codewarsclient.repositories.ChallengeDetailsRepository
+import com.codewarsclient.repositories.interfaces.ChallengeDetailsRepository
 import com.codewarsclient.utils.Utils
 import kotlinx.coroutines.launch
 

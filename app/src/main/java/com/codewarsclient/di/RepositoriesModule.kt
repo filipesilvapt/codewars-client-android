@@ -5,7 +5,13 @@ import com.codewarsclient.database.dao.AuthoredChallengeDao
 import com.codewarsclient.database.dao.ChallengeDetailsDao
 import com.codewarsclient.database.dao.CompletedChallengeDao
 import com.codewarsclient.database.dao.MemberDao
-import com.codewarsclient.repositories.*
+import com.codewarsclient.repositories.DefaultAuthoredChallengesRepository
+import com.codewarsclient.repositories.DefaultChallengeDetailsRepository
+import com.codewarsclient.repositories.DefaultCompletedChallengesRepository
+import com.codewarsclient.repositories.DefaultMemberRepository
+import com.codewarsclient.repositories.interfaces.AuthoredChallengesRepository
+import com.codewarsclient.repositories.interfaces.ChallengeDetailsRepository
+import com.codewarsclient.repositories.interfaces.CompletedChallengesRepository
 import com.codewarsclient.repositories.interfaces.MemberRepository
 import dagger.Module
 import dagger.Provides
@@ -30,7 +36,11 @@ object RepositoriesModule {
         completedChallengeDao: CompletedChallengeDao,
         apiService: ApiService
     ): CompletedChallengesRepository {
-        return CompletedChallengesRepository(completedChallengeDao, apiService, Dispatchers.IO)
+        return DefaultCompletedChallengesRepository(
+            completedChallengeDao,
+            apiService,
+            Dispatchers.IO
+        )
     }
 
     @Provides
@@ -38,7 +48,11 @@ object RepositoriesModule {
         authoredChallengesDao: AuthoredChallengeDao,
         apiService: ApiService
     ): AuthoredChallengesRepository {
-        return AuthoredChallengesRepository(authoredChallengesDao, apiService, Dispatchers.IO)
+        return DefaultAuthoredChallengesRepository(
+            authoredChallengesDao,
+            apiService,
+            Dispatchers.IO
+        )
     }
 
     @Provides
@@ -46,7 +60,7 @@ object RepositoriesModule {
         challengeDetailsDao: ChallengeDetailsDao,
         apiService: ApiService
     ): ChallengeDetailsRepository {
-        return ChallengeDetailsRepository(challengeDetailsDao, apiService, Dispatchers.IO)
+        return DefaultChallengeDetailsRepository(challengeDetailsDao, apiService, Dispatchers.IO)
     }
 
 }
