@@ -4,6 +4,7 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.codewarsclient.database.entities.CompletedChallengeEntity
 import com.codewarsclient.utils.DateTimeUtils
+import com.codewarsclient.utils.Utils
 import kotlinx.android.synthetic.main.layout_row_item_completed_challenge.view.*
 
 class CompletedChallengesItemViewHolder(private val challengeItemView: View) :
@@ -18,7 +19,8 @@ class CompletedChallengesItemViewHolder(private val challengeItemView: View) :
             DateTimeUtils.convertApiDateTimeToDisplay(item.completedAt)
 
         // Set the languages list
-        challengeItemView.text_languages.text = item.languagesList.joinToString { it }
+        challengeItemView.text_languages.text =
+            Utils.capitalizeAndJoinLanguagesList(item.languagesList)
     }
 
 }

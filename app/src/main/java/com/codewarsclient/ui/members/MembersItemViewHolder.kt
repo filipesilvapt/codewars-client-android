@@ -16,7 +16,8 @@ class MembersItemViewHolder(private val memberItemView: View) :
         memberItemView.text_name.text = item.username
 
         // Set the language name with highest score
-        memberItemView.text_language.text = "${item.bestLanguage} (${item.bestLanguagePoints})"
+        memberItemView.text_language.text =
+            "${item.bestLanguage.capitalize()} (${item.bestLanguagePoints})"
     }
 
 }

@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.codewarsclient.R
 import com.codewarsclient.repositories.ChallengeDetailsRepository
+import com.codewarsclient.utils.Utils
 import kotlinx.coroutines.launch
 
 class ChallengeDetailsViewModel @ViewModelInject constructor(
@@ -58,7 +59,7 @@ class ChallengeDetailsViewModel @ViewModelInject constructor(
 
                 _textRank.value = entity.rankName
 
-                _textLanguages.value = entity.languagesList.joinToString { it }
+                _textLanguages.value = Utils.capitalizeAndJoinLanguagesList(entity.languagesList)
 
                 _textTags.value = entity.tagsList.joinToString { it }
 
