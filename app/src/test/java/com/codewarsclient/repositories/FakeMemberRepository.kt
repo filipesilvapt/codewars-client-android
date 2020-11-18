@@ -2,14 +2,16 @@ package com.codewarsclient.repositories
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.codewarsclient.api.ApiService
 import com.codewarsclient.database.entities.MemberEntity
-import com.codewarsclient.repositories.helpers.ApiResultWrapper
-import com.codewarsclient.repositories.helpers.RepositoryResultState
-import com.codewarsclient.repositories.interfaces.MemberRepository
-import com.codewarsclient.utils.FileAccessUtil
-import com.codewarsclient.utils.jsonToMemberModel
+import io.mockk.mockk
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
 
-class FakeMemberRepository : MemberRepository {
+class FakeMemberRepository(
+    apiService: ApiService,
+    dispatcher: CoroutineDispatcher = Dispatchers.IO
+) : DefaultMemberRepository(mockk(), apiService, dispatcher) {
 
     private val membersList = mutableListOf<MemberEntity>()
 
@@ -19,16 +21,24 @@ class FakeMemberRepository : MemberRepository {
         return observableMembersList
     }
 
-    override suspend fun searchMemberAndSave(username: String): RepositoryResultState {
-        val memberInfoFromFile = FileAccessUtil.readFileIntoString("member_wichu.json")
+    override suspend fun insertMemberInDatabase(memberEntity: MemberEntity) {
+        upsertMember(memberEntity)
+    }
 
-        val memberSearchApiResponse =
-            ApiResultWrapper.Success(jsonToMemberModel(memberInfoFromFile))
+    override suspend fun updateMemberInDatabase(memberEntity: MemberEntity) {
+        upsertMember(memberEntity)
+    }
 
-        membersList.add(memberSearchApiResponse.value.toMemberEntity())
+    override suspend fun getMemberFromDatabase(username: String): MemberEntity? {
+        return membersList.find { member -> username == member.username }
+    }
 
+    private fun upsertMember(memberEntity: MemberEntity) {
+        // Always remove the element from the list to mimic the on conflict, replace, database strategy
+        membersList.removeIf { member -> memberEntity.username == member.username }
+        // Always add at the top to mimic the database query which sorts by time of search
+        membersList.add(0, memberEntity)
+        // Update the live data
         observableMembersList.postValue(membersList)
-
-        return RepositoryResultState.SUCCESS_API
     }
 }

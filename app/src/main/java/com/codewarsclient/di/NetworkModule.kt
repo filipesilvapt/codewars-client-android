@@ -14,7 +14,7 @@ object NetworkModule {
 
     @Provides
     fun provideApiClient(): Retrofit {
-        return ApiClient.apiClient()
+        return ApiClient().getInstance()
     }
 
     @Provides

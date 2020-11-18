@@ -1,0 +1,64 @@
+{
+  "username": "AlexIsHappy",
+  "name": null,
+  "honor": 44840,
+  "clan": " Institute for Geoinformatics (Germany)",
+  "leaderboardPosition": 30,
+  "skills": null,
+  "ranks": {
+    "overall": {
+      "rank": -4,
+      "name": "4 kyu",
+      "color": "blue",
+      "score": 741
+    },
+    "languages": {
+      "java": {
+        "rank": -7,
+        "name": "7 kyu",
+        "color": "white",
+        "score": 54
+      },
+      "csharp": {
+        "rank": -4,
+        "name": "4 kyu",
+        "color": "blue",
+        "score": 656
+      },
+      "python": {
+        "rank": -7,
+        "name": "7 kyu",
+        "color": "white",
+        "score": 49
+      },
+      "javascript": {
+        "rank": -6,
+        "name": "6 kyu",
+        "color": "yellow",
+        "score": 128
+      },
+      "ruby": {
+        "rank": -7,
+        "name": "7 kyu",
+        "color": "white",
+        "score": 39
+      },
+      "haskell": {
+        "rank": -8,
+        "name": "8 kyu",
+        "color": "white",
+        "score": 10
+      },
+      "clojure": {
+        "rank": -7,
+        "name": "7 kyu",
+        "color": "white",
+        "score": 29
+      }
+    }
+  },
+  "codeChallenges": {
+    "totalAuthored": 19,
+    "totalCompleted": 122
+  }
+}

@@ -1,15 +1,18 @@
 package com.codewarsclient.api
 
 import com.google.gson.GsonBuilder
+import okhttp3.HttpUrl
+import okhttp3.HttpUrl.Companion.toHttpUrl
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-object ApiClient {
-    private const val baseUrl: String = "https://www.codewars.com/api/"
+class ApiClient(
+    private val baseUrl: HttpUrl = "https://www.codewars.com/api/".toHttpUrl()
+) {
 
-    fun apiClient(): Retrofit {
+    fun getInstance(): Retrofit {
         val gson = GsonBuilder()
             .setLenient()
             .create()

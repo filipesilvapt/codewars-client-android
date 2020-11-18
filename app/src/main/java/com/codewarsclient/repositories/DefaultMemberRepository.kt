@@ -14,7 +14,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class DefaultMemberRepository @Inject constructor(
+open class DefaultMemberRepository @Inject constructor(
     private val dao: MemberDao,
     private val apiService: ApiService,
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO
@@ -57,7 +57,7 @@ class DefaultMemberRepository @Inject constructor(
                 }
             }
             is ApiResultWrapper.Success -> {
-                dao.insertMember(memberSearchApiResponse.value.toMemberEntity())
+                insertMemberInDatabase(memberSearchApiResponse.value.toMemberEntity())
                 RepositoryResultState.SUCCESS_API
             }
         }
@@ -69,11 +69,23 @@ class DefaultMemberRepository @Inject constructor(
      * Returns true if it was able to find the member, false otherwise.
      */
     private suspend fun updateMemberLocalSearchIfExists(username: String): Boolean {
-        val memberFound = dao.getMember(username)
+        val memberFound = getMemberFromDatabase(username)
         return memberFound?.let {
             it.updateTimeOfSearchWithNow()
-            dao.updateMember(it)
+            updateMemberInDatabase(it)
             true
         } ?: false
+    }
+
+    override suspend fun insertMemberInDatabase(memberEntity: MemberEntity) {
+        dao.insertMember(memberEntity)
+    }
+
+    override suspend fun updateMemberInDatabase(memberEntity: MemberEntity) {
+        dao.updateMember(memberEntity)
+    }
+
+    override suspend fun getMemberFromDatabase(username: String): MemberEntity? {
+        return dao.getMember(username)
     }
 }
