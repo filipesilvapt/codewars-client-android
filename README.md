@@ -22,7 +22,7 @@ The requirements are as follow:
 - Here is a link to the current leaderboard where the members search can be experienced: https://www.codewars.com/users/leaderboard
 
 **2. Members challenges (completed/authored)**
-- On member selection you should display a view with bottom navigation and a list of challenges.
+- On member selection should be displayed a view with bottom navigation and a list of challenges.
 - The bottom navigation menu options should have the completed challenges and authored challenges, each of them presenting the user with a corresponding list of items.
 - The list should be populated with more results when the end of the page is reached, unless there are no more results to be fetched, in which case the user should be notified of this.
 
